@@ -37,6 +37,8 @@ public class ServiceSelectServiceBean {
 	    */
 	    entityManager.persist(serviceSelectEntity);
 	    entityManager.flush();
+	    
+	    
 	
 	}
 
