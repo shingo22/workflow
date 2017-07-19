@@ -6,12 +6,18 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.TimeZone;
 
+import javax.persistence.Id;
+
 public class ServiceSelection implements java.io.Serializable {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	private int serviceId;
+	
 	private String destination; 
 	private Date arriveTime;
 	private Date returnTime;

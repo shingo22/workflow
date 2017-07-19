@@ -18,6 +18,9 @@ public class PaymentInfo implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	private int paymentId;
 	private String holderName;
 	private String cardNumber;
 	private Date expireDate;

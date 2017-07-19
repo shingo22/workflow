@@ -18,6 +18,9 @@ public class Customer implements java.io.Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	private int CustomerId;
 	private String firstName;
 	private String lastName;
 	private Date birthDate;

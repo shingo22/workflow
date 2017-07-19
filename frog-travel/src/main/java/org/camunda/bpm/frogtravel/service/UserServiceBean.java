@@ -13,7 +13,9 @@ import java.util.Map;
 import org.camunda.bpm.frogtravel.persistence.Customer;
 
 @Stateless
+@Named
 public class UserServiceBean {
+	
 	@PersistenceContext
 	private EntityManager entityManager;
 	
