@@ -34,5 +34,7 @@
 			<attribute name="owner.project.facets" value="jboss.m2"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="D:/Workspace/java_external_jars/javaee-api-7.0.jar"/>
+	<classpathentry kind="lib" path="D:/Workspace/java_external_jars/javax.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
