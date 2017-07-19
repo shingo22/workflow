@@ -496,7 +496,7 @@
       <outgoing>SequenceFlow_15ur5sc</outgoing>
     </receiveTask>
     <dataStoreReference id="DataStoreReference_191rqz8" />
-    <startEvent id="StartEvent_050daqw" name="Receive Order">
+    <startEvent id="StartEvent_050daqw" name="Receive Order" camunda:formKey="app:chooseDate.xhtml">
       <extensionElements>
         <camunda:properties>
           <camunda:property />
