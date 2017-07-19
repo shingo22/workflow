@@ -1,25 +1,18 @@
 package org.camunda.bpm.frogtravel.persistence;
 
-import java.util.Calendar;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.TimeZone;
 
 import javax.persistence.Entity;
 
 @Entity
-public class RequestSkiOasis implements java.io.Serializable {
+public class ServiceSelection implements java.io.Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5885128018789230805L;
+	
 	private String destination;
 	private Date arriveTime;
 	private Date returnTime;
-	
-	private boolean isTransferIncluded;
+	private boolean isAccomodationIncluded;
 	private boolean isCateringIncluded;
 	private boolean isEquipIncluded;
 	private boolean isInstructionIncluded;
@@ -49,12 +42,12 @@ public class RequestSkiOasis implements java.io.Serializable {
 		this.returnTime = returnTime;
 	}
 
-	public boolean getIsTransferIncluded() {
-		return isTransferIncluded;
+	public boolean isAccomodationIncluded() {
+		return isAccomodationIncluded;
 	}
 
-	public void setAccomodationIncluded(boolean isTransferIncluded) {
-		this.isTransferIncluded = isTransferIncluded;
+	public void setAccomodationIncluded(boolean isAccomodationIncluded) {
+		this.isAccomodationIncluded = isAccomodationIncluded;
 	}
 
 	public boolean isCateringIncluded() {

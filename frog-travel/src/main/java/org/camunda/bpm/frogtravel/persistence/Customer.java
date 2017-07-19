@@ -6,7 +6,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.TimeZone;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Customer implements java.io.Serializable{
+	private static final long serialVersionUID = 5885128018789230805L;
 	private String firstName;
 	private String lastName;
 	private Date birthDate;
