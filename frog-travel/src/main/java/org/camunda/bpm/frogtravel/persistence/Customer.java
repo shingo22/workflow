@@ -27,6 +27,13 @@ public class Customer implements java.io.Serializable{
 	private String email;
 	
 	
+	public int getCustomerId() {
+		return CustomerId;
+	}
+	public void setCustomerId(int customerId) {
+		CustomerId = customerId;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}

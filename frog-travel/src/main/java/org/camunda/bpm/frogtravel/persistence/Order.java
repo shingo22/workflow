@@ -19,9 +19,11 @@ public class Order implements java.io.Serializable {
 	
 	@Id
 	private int orderId;	
-	protected Customer customer;
 	
+	protected Customer customer;
 	protected PaymentInfo paymentInfo;
+	protected ServiceSelection serviceSelection;
+	
 	
 	public int getOrderId() {
 		return orderId;
@@ -41,5 +43,10 @@ public class Order implements java.io.Serializable {
 	public void setPaymentInfo(PaymentInfo paymentInfo) {
 		this.paymentInfo = paymentInfo;
 	}
-
+	public ServiceSelection getServiceSelection() {
+		return serviceSelection;
+	}
+	public void setServiceSelection(ServiceSelection serviceSelection) {
+		this.serviceSelection = serviceSelection;
+	}
 }
