@@ -7,6 +7,10 @@ import java.util.HashSet;
 import java.util.TimeZone;
 
 public class Customer implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String lastName;
 	private Date birthDate;

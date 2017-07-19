@@ -1,7 +1,0 @@
-org\camunda\bpm\frogtravel\frogtravelagency\ProvideInfoDelegate.class
-org\camunda\bpm\frogtravel\persistence\Customer.class
-org\camunda\bpm\frogtravel\persistence\RequestSkiOasis.class
-org\camunda\bpm\frogtravel\persistence\PaymentInfo.class
-org\camunda\bpm\frogtravel\frogtravelagency\FrogTravelApplication.class
-org\camunda\bpm\frogtravel\persistence\Order.class
-org\camunda\bpm\frogtravel\servlet\TestServlet.class

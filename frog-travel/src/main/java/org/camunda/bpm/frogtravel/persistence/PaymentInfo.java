@@ -7,6 +7,10 @@ import java.util.HashSet;
 import java.util.TimeZone;
 
 public class PaymentInfo implements java.io.Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String holderName;
 	private String cardNumber;
 	private Date expireDate;
