@@ -3,5 +3,6 @@ org\camunda\bpm\frogtravel\persistence\RequestSkiOasis.class
 org\camunda\bpm\frogtravel\persistence\ServiceSelection.class
 org\camunda\bpm\frogtravel\service\UserServiceBean.class
 org\camunda\bpm\frogtravel\persistence\PaymentInfo.class
+org\camunda\bpm\frogtravel\service\OrderServiceBean.class
 org\camunda\bpm\frogtravel\persistence\Order.class
 org\camunda\bpm\frogtravel\servlet\TestServlet.class
