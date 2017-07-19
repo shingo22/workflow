@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+  <f:metadata>
+    <!-- Start a new process instance. The Process Definition Key is read internally from
+         request parameters and cached in the CDI conversation scope.
+    -->
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startProcessInstanceByKeyForm()}" />
+  </f:metadata>
+  <h:head>
+    <title>Create Order</title>
+  </h:head>
+  <h:body>
+    <h1>Choose your desirable date and destination</h1>
+    <h:form id="submitForm">
+	<ui:define name="content">
+	<div class="inputForm"><h:form>
+		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
+			<h:outputLabel value="Arrive Date" for="name" />
+			<h:inputText id="name" value="#{processCreateVendor.vendor.name}"/>
+			<h:message for="name"/>
+			
+			<h:outputLabel value="Leave Date" for="name" />
+			<h:inputText id="name" value="#{processCreateVendor.vendor.name}"/>
+			<h:message for="name"/>
+			
+			<h:outputLabel value="Destination" for="vendorSelector" />
+		    <h:selectOneListbox value="#{processSendOrder.vendor}" id="vendorSelector" required="true" rows="15" requiredMessage="Vendor must be selected to proceed!"  converter="#{processSendOrder.createVendorConverter()}">
+		    <f:selectItems value="#{processSendOrder.vendors}" />
+		    </h:selectOneListbox>
+		    
+			<f:facet name="footer"><h:commandButton id="submit_button" value="Submit" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
+			<h:commandButton value="Cancel" action="#{processCreateVendor.cancel}" immediate="true" /></f:facet>
+		</h:panelGrid>
+	</h:form></div>
+	<div class="result"><h:outputText rendered="#{not empty processAddUser.error}" styleClass="error" value="#{processAddUser.error}" /></div>
+	</ui:define>
+  </h:body>
+</f:view>
+</html>

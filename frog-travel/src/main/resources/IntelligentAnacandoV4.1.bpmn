@@ -218,7 +218,7 @@
         <signavio:signavioMetaData metaKey="externaldocuments" metaValue="[]" />
         <signavio:signavioMetaData metaKey="meta-fimtestattribut" metaValue="OK" />
       </extensionElements>
-      <incoming>SequenceFlow_110b61g</incoming>
+      <incoming>SequenceFlow_1c9yjt2</incoming>
       <outgoing>SequenceFlow_0snkoz5</outgoing>
       <property id="Property_04yp3j7" name="__targetRef_placeholder" />
       <dataInputAssociation id="DataInputAssociation_1sxqbwz">
@@ -233,7 +233,7 @@
       </extensionElements>
       <incoming>sid-943404CE-26C0-4271-9D7B-EA7648D56D84</incoming>
       <incoming>SequenceFlow_1vpi77o</incoming>
-      <outgoing>SequenceFlow_110b61g</outgoing>
+      <outgoing>SequenceFlow_1c9yjt2</outgoing>
     </exclusiveGateway>
     <sendTask id="sid-673D6E59-E625-471A-8847-591198159D26" name="Ask customer for additional services" implementation="##WebService" camunda:class="AskAdditionalServices">
       <extensionElements>
@@ -503,10 +503,10 @@
         </camunda:properties>
       </extensionElements>
       <outgoing>SequenceFlow_1vpi77o</outgoing>
-      <messageEventDefinition />
+      <messageEventDefinition messageRef="Message_19nk099" />
     </startEvent>
     <sequenceFlow id="SequenceFlow_1vpi77o" sourceRef="StartEvent_050daqw" targetRef="sid-0F568B88-47E3-4FAD-BDFE-C4910D3199DC" />
-    <sequenceFlow id="SequenceFlow_110b61g" sourceRef="sid-0F568B88-47E3-4FAD-BDFE-C4910D3199DC" targetRef="sid-C2F85DE4-ECF1-4C83-80BA-4A0F49A12A9D" />
+    <sequenceFlow id="SequenceFlow_1c9yjt2" sourceRef="sid-0F568B88-47E3-4FAD-BDFE-C4910D3199DC" targetRef="sid-C2F85DE4-ECF1-4C83-80BA-4A0F49A12A9D" />
   </process>
   <process id="sid-F4363DFA-1AB2-49D4-A4C6-C73301E8AEAA" name="Ski OASIS" processType="None" isClosed="false" isExecutable="false">
     <extensionElements />
@@ -550,6 +550,7 @@
   <message id="Message_1v9thbs" name="Message_0e1tp5b" />
   <message id="Message_1qymdit" name="Message_1drkn7u" />
   <message id="Message_1embxw5" name="Message_3pqmsqp" />
+  <message id="Message_19nk099" name="StartRequest" />
   <bpmndi:BPMNDiagram id="sid-7aee84f3-abc9-4cf9-a55b-17c98c425456">
     <bpmndi:BPMNPlane id="sid-c6148aa4-2b90-4a01-b949-788a4cccdb71" bpmnElement="sid-c8a8137b-e5ae-4d76-b53e-c94efa823a4d">
       <bpmndi:BPMNShape id="sid-BCB0778E-6CD8-4442-B4F0-F70C6676C51F_gui" bpmnElement="sid-BCB0778E-6CD8-4442-B4F0-F70C6676C51F" isHorizontal="true">
@@ -1197,11 +1198,11 @@
           <omgdc:Bounds x="836.5" y="480" width="0" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_110b61g_di" bpmnElement="SequenceFlow_110b61g">
+      <bpmndi:BPMNEdge id="SequenceFlow_1c9yjt2_di" bpmnElement="SequenceFlow_1c9yjt2">
         <omgdi:waypoint xsi:type="omgdc:Point" x="1006" y="501" />
         <omgdi:waypoint xsi:type="omgdc:Point" x="1247" y="501" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="1126.5" y="480" width="0" height="12" />
+          <omgdc:Bounds x="1126.5" y="479" width="0" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
