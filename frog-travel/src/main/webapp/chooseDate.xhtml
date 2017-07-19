@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+<f:view>
+  <f:metadata>
+    <!-- Start a new process instance. The Process Definition Key is read internally from
+         request parameters and cached in the CDI conversation scope.
+    -->
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startProcessInstanceByKeyForm()}" />
+  </f:metadata>
+  
+  <h:head>
+    <title>Create Order</title>
+  </h:head>
+  
+  <h:body>
+    <h1>Choose your desirable date and destination</h1>
+    
+    <h:form id="submitForm">
+    
+		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
+			<h:outputLabel value="Arrive Date" for="arriveDate" />
+			<h:inputText id="arriveDate" value="#{processVariables['arriveDate']}"/>
+			<h:message for="arriveDate"/>
+			
+			<h:outputLabel value="Return Date" for="returnDate" />
+			<h:inputText id="returnDate" value="#{processVariables['returnDate']}"/>
+			<h:message for="returnDate"/>
+			
+			<h:outputLabel value="Destination" for="destination" />
+		    <h:inputText id="destination" value="#{processVariables['destination']}"/>
+			<h:message for="destination"/>
+		    
+			
+		</h:panelGrid>
+		<h:commandButton id="submit_button" value="Submit" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
+		<h:commandButton id="cancel_button" value="Cancel" action="#{camundaTaskForm.completeProcessInstanceForm()}" immediate="true" />
+		
+	</h:form>
+  </h:body>  
+</f:view>
+</html>
