@@ -22,25 +22,25 @@ public class OrderServiceBean {
 	  
 	  public void persistOrder(DelegateExecution delegateExecution) {
 		    // Create new order instance
-		    Order order = new Order();
+		    OrderEntity orderEntity = new OrderEntity();
 
 		    // Get all process variables
 		    Map<String, Object> variables = delegateExecution.getVariables();
 
 		    // Set order attributes
-		    order.setFirstName((String) variables.get("firstName"));
-		    order.setLastName((String) variables.get("lastName"));
-		    order.setBirthDate((Date) variables.get("birthDate"));
-		    order.setEmail((String) variables.get("email"));
+		    orderEntity.setFirstName((String) variables.get("firstName"));
+		    orderEntity.setLastName((String) variables.get("lastName"));
+		    orderEntity.setBirthDate((String) variables.get("birthDate"));
+		    orderEntity.setEmail((String) variables.get("email"));
 		    
-		    order.setDestination((String) variables.get("destination"));
-		    order.setArriveTime((String) variables.get("arriveDate"));
-		    order.setReturnTime((String) variables.get("returnDate"));
+		    orderEntity.setDestination((String) variables.get("destination"));
+		    orderEntity.setArriveTime((String) variables.get("arriveDate"));
+		    orderEntity.setReturnTime((String) variables.get("returnDate"));
 		    
-		    order.setTransferIncluded((Boolean) variables.get("isTransferIncluded"));
-		    order.setEquipIncluded((Boolean) variables.get("isEquipIncluded"));
-		    order.setCateringIncluded((Boolean) variables.get("isCateringIncluded"));
-		    order.setInstructionIncluded((Boolean) variables.get("isInstructionIncluded"));
+		    orderEntity.setTransferIncluded((Boolean) variables.get("isTransferIncluded"));
+		    orderEntity.setEquipIncluded((Boolean) variables.get("isEquipIncluded"));
+		    orderEntity.setCateringIncluded((Boolean) variables.get("isCateringIncluded"));
+		    orderEntity.setInstructionIncluded((Boolean) variables.get("isInstructionIncluded"));
 		    
 		    //order.setPaymentInfo((PaymentInfo) variables.get("paymentInfo"));
 
@@ -48,14 +48,14 @@ public class OrderServiceBean {
 		      Persist order instance and flush. After the flush the
 		      id of the order instance is set.
 		    */
-		    entityManager.persist(order);
+		    entityManager.persist(orderEntity);
 		    entityManager.flush();
 
 //		    // Remove no longer needed process variables
 //		    delegateExecution.removeVariables(variables.keySet());
 //
 		    // Add newly created order id as process variable
-		    delegateExecution.setVariable("orderId", order.getOrderId());
+		    delegateExecution.setVariable("orderId", orderEntity.getOrderId());
 	  }
 	
 }

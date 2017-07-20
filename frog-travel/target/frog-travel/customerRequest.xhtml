@@ -14,77 +14,60 @@
   
   <h:head>
     <title>Create Order</title>
+    
   </h:head>
-  
+  <img src="hero-quvol.jpg" alt="ice" height="62" width="60" style="width: 1096px; height: 208px; "/><br/>
   <h:body>
     <h1>Create Order</h1>
     <h:form id="submitForm">
-		<h:panelGrid columns="3">
-		
-			<label for="arriveDate">Arrive Date</label>
-			<h:inputText id="arriveDate" value="#{processVariables['arriveDate']}" required="true"/>
-			<h:message for="arriveDate"/>
-			
-			<label for="returnDate">Return Date</label>
-			<h:inputText id="returnDate" value="#{processVariables['returnDate']}" required="true"/>
-			<h:message for="returnDate"/>
-			
-			<label for="destination">Destination</label>
-		    <h:inputText id="destination" value="#{processVariables['destination']}"/>
-		    <h:message for="destination"/>	  
-		
-		</h:panelGrid>
-		
-		<h:panelGrid columns="3">
+    
+		<h:panelGrid columns="2">
 		
 			<label for="firstName">First Name</label>
 			<h:inputText id="firstName" value="#{processVariables['firstName']}" required="true"/>
-			<h:message for="firstName"/>
 			
 			<label for="lastName">Last Name</label>
 			<h:inputText id="lastName" value="#{processVariables['lastName']}" required="true"/>
-			<h:message for="lastName"/>
 			
 			<label for="birthDate">Birth Date</label>
 		    <h:inputText id="birthDate" value="#{processVariables['birthDate']}"/>
-		    <h:message for="birthDate"/>
 		    
 		    <label for="email">E-mail</label>
-		    <h:inputText id="email" value="#{processVariables['email']}"/>
-		    <h:message for="email"/>	  
+		    <h:inputText id="email" value="#{processVariables['birthDate']}"/>  
+		
+		</h:panelGrid>   
+		
+		<h:panelGrid columns="2">
+		
+			<label for="arriveDate">Arrive Date</label>
+			<h:inputText id="arriveDate" value="#{processVariables['arriveDate']}" required="true" />
+			
+			<label for="returnDate">Return Date</label>
+			<h:inputText id="returnDate" value="#{processVariables['returnDate']}" required="true" />
+			
+			<label for="destination">Destination</label>
+		    <h:inputText id="destination" value="#{processVariables['destination']}" />  
 		
 		</h:panelGrid>
+		
+		
 
 		<h:panelGrid columns="2">
 		
             <label for="isTransferIncluded">Transportation</label>
-            <h:selectOneMenu id="isTransferIncluded" value="#{processVariables['isTransferIncluded']}">
-              <f:selectItem itemValue="true" itemLabel="Yes"/>
-              <f:selectItem itemValue="false" itemLabel="No"/>
-            </h:selectOneMenu>
+            <h:selectBooleanCheckbox value="#{processVariables['isTransferIncluded']}"/>
             
             <label for="isCateringIncluded">Catering</label>
-            <h:selectOneMenu id="isCateringIncluded" value="#{processVariables['isCateringIncluded']}">
-              <f:selectItem itemValue="true" itemLabel="Yes"/>
-              <f:selectItem itemValue="flase" itemLabel="No"/>
-            </h:selectOneMenu>
+            <h:selectBooleanCheckbox value="#{processVariables['isCateringIncluded']}"/>
             
             <label for="isInstructionIncluded">Instruction</label>
-            <h:selectOneMenu id="isInstructionIncluded" value="#{processVariables['isInstructionIncluded']}">
-              <f:selectItem itemValue="true" itemLabel="Yes"/>
-              <f:selectItem itemValue="flase" itemLabel="No"/>
-            </h:selectOneMenu>            
+            <h:selectBooleanCheckbox value="#{processVariables['isInstructionIncluded']}"/>
 
-            <label for="isEquipIncluded">Ski Equipments</label>
-            <h:selectOneMenu id="isEquipIncluded" value="#{processVariables['isEquipIncluded']}">
-              <f:selectItem itemValue="true" itemLabel="Yes"/>
-              <f:selectItem itemValue="flase" itemLabel="No"/>
-            </h:selectOneMenu>			
-			
-		
+            <label for="isEquipIncluded">Ski Equipments (Provided by SkiOasis)</label>
+            <h:selectBooleanCheckbox value="#{processVariables['isEquipIncluded']}"/>
+       
+            
 		</h:panelGrid>
-		
-		
 		 <!-- The button starts a new process instance. This ends the conversation and redirects us to the tasklist.
 
            NOTE: Syntax is different when working on user task forms, see file "approveLoanRequest.xhtml".

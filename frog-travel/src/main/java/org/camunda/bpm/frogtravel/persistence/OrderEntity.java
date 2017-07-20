@@ -13,7 +13,7 @@ import javax.persistence.Version;
 import java.io.Serializable;
 
 @Entity
-public class Order implements java.io.Serializable {
+public class OrderEntity implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -23,7 +23,7 @@ public class Order implements java.io.Serializable {
 	
 	private String firstName;
 	private String lastName;
-	private Date birthDate;
+	private String birthDate;
 	private String email;	
 	
 	private String destination; 
@@ -57,10 +57,10 @@ public class Order implements java.io.Serializable {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Date getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 	public String getEmail() {
