@@ -17,21 +17,21 @@ import org.camunda.bpm.frogtravel.persistence.OrderEntity;
 public class DecisionTableApplication extends ServletProcessApplication {
 	
 	
-	 @PostDeploy
-	 public void evaluateDecisionTable(ProcessEngine processEngine) {
-		
-		 DecisionService decisionService = processEngine.getDecisionService();
-
-//		 VariableMap variables = Variables.createVariables()
-//				 .putValue("isEquipmentIncluded", orderEntity.isEquipIncluded())
-//				 .putValue("containCatering", orderEntity.isCateringIncluded())
-//				 .putValue("containInstructor", orderEntity.isInstructionIncluded())
-//				 .putValue("containTransportation", orderEntity.isTransferIncluded());
-//	      
-//	    DmnDecisionTableResult dishDecisionResult = decisionService.evaluateDecisionTableByKey("dish", variables);
-//	    String desiredDish = dishDecisionResult.getSingleEntry();
+//	 @PostDeploy
+//	 public void evaluateDecisionTable(ProcessEngine processEngine) {
+//		
+//		 DecisionService decisionService = processEngine.getDecisionService();
 //
-//	    System.out.println("Desired dish: " + desiredDish);
-	  }
+////		 VariableMap variables = Variables.createVariables()
+////				 .putValue("isEquipmentIncluded", orderEntity.isEquipIncluded())
+////				 .putValue("containCatering", orderEntity.isCateringIncluded())
+////				 .putValue("containInstructor", orderEntity.isInstructionIncluded())
+////				 .putValue("containTransportation", orderEntity.isTransferIncluded());
+////	      
+////	    DmnDecisionTableResult dishDecisionResult = decisionService.evaluateDecisionTableByKey("dish", variables);
+////	    String desiredDish = dishDecisionResult.getSingleEntry();
+////
+////	    System.out.println("Desired dish: " + desiredDish);
+//	  }
 
 }

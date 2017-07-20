@@ -309,7 +309,7 @@
       <outgoing>SequenceFlow_033qlcq</outgoing>
     </exclusiveGateway>
     <sequenceFlow id="SequenceFlow_18xioua" sourceRef="sid-C2F85DE4-ECF1-4C83-80BA-4A0F49A12A9D" targetRef="sid-0F568B88-47E3-4FAD-BDFE-C4910D3199DC" />
-    <serviceTask id="sid-C2F85DE4-ECF1-4C83-80BA-4A0F49A12A9D" name="Check availability of Accomodation and Ski Card at Specific Date" implementation="##WebService" camunda:expression="${serviceSelectServiceBean.checkAccomodation(execution)}">
+    <serviceTask id="sid-C2F85DE4-ECF1-4C83-80BA-4A0F49A12A9D" name="Check availability of Accommodation and Ski Card at Specific Date" implementation="##WebService" camunda:expression="${orderServiceBean.checkAccommodation(execution)}">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />

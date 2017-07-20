@@ -1,13 +1,16 @@
 package org.camunda.bpm.frogtravel.service;
 
+import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +23,9 @@ public class OrderServiceBean {
 	  // Inject the entity manager
 	  @PersistenceContext
 	  private EntityManager entityManager;
+	  
+	  @Inject
+	  private TaskForm taskForm;
 	  
 	  OrderEntity orderObj;
 	  
@@ -48,12 +54,12 @@ public class OrderServiceBean {
 		    
 		    //orderEntity.setEquipmentList((List<String>) variables.get("skiEquipmentType"));
 		    
-		    orderEntity.addEquipment(1, variables.get("checkski").toString());
-		    orderEntity.addEquipment(2, variables.get("Snowboard").toString());
-		    orderEntity.addEquipment(3, variables.get("checkverypopularsnowboard").toString());
-		    orderEntity.addEquipment(4, variables.get("checkhelmet").toString());
-		    orderEntity.addEquipment(5, variables.get("checkstick").toString());
-		    orderEntity.addEquipment(6, variables.get("checkskisuit").toString());
+		    orderEntity.addEquipment((Integer)1, variables.get("checkSki").toString());
+		    orderEntity.addEquipment((Integer)2, variables.get("checkSnowboard").toString());
+		    orderEntity.addEquipment((Integer)3, variables.get("checkVeryPopularSnowboard").toString());
+		    orderEntity.addEquipment((Integer)4, variables.get("checkHelmet").toString());
+		    orderEntity.addEquipment((Integer)5, variables.get("checkStick").toString());
+		    orderEntity.addEquipment((Integer)6, variables.get("checkSkiSuit").toString());
 		    
 		    System.out.println("NOW PRINT EQUIPMENT LIST -----------------------");
 		    System.out.println(orderEntity.getEquipmentList());
@@ -78,11 +84,12 @@ public class OrderServiceBean {
 	  }
 	  
 	  
-	  //check accomodation
-	  public void checkAccomodation(DelegateExecution delegateExecution) {
-//		 orderObj.getDestination();
-//		 orderObj.getReturnTime();
-		 if (orderObj.getArriveTime() == "10-01-2017") {
+	  //check accommodation
+	  public void checkAccommodation(DelegateExecution delegateExecution) {	  
+		 // Get all process variables
+		 
+		 
+		 if ((String) delegateExecution.getVariables().get("arriveDate") == "10-01-2017") {
 			 System.out.println("THE DESTINATION IS AVALIABLE FROM " + orderObj.getArriveTime() + " TO " + orderObj.getReturnTime());
 			
 			 delegateExecution.setVariable("isApproved", true);

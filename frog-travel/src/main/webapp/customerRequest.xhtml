@@ -27,7 +27,7 @@
 			<h:inputText id="firstName" value="#{processVariables['firstName']}" required="true"/>
 			
 			<label for="lastName">Last Name</label>
-			<h:inputText id="lastName" value="#t{processVariables['lastName']}" required="true"/>
+			<h:inputText id="lastName" value="#{processVariables['lastName']}" required="true"/>
 			
 			<label for="birthDate">Birth Date</label>
 		    <h:inputText id="birthDate" value="#{processVariables['birthDate']}"/>
@@ -71,23 +71,23 @@
 		<h3>Select Ski Equipments</h3>
 	    <h:panelGrid columns="2">
 		
-            <label for="checkski">Ski</label>
-            <h:selectBooleanCheckbox value="#{processVariables['checkski']}"/>
+            <label for="checkSki">Ski</label>
+            <h:selectBooleanCheckbox value="#{processVariables['checkSki']}"/>
             
-            <label for="checksnowboard">Snowboard</label>
-            <h:selectBooleanCheckbox value="#{processVariables['checksnowboard']}"/>
+            <label for="checkSnowboard">Snowboard</label>
+            <h:selectBooleanCheckbox value="#{processVariables['checkSnowboard']}"/>
             
-            <label for="checkverypopularsnowboard">Very popular snowboard</label>
-            <h:selectBooleanCheckbox value="#{processVariables['checkverypopularsnowboard']}"/>
+            <label for="checkVeryPopularSnowboard">Very Popular Snowboard</label>
+            <h:selectBooleanCheckbox value="#{processVariables['checkVeryPopularSnowboard']}"/>
 
-            <label for="checkhelmet">Helmet</label>
-            <h:selectBooleanCheckbox value="#{processVariables['checkhelmet']}"/>
+            <label for="checkHelmet">Helmet</label>
+            <h:selectBooleanCheckbox value="#{processVariables['checkHelmet']}"/>
             
-            <label for="checkstick">Stick</label>
-            <h:selectBooleanCheckbox value="#{processVariables['checkstick']}"/>
+            <label for="checkStick">Stick</label>
+            <h:selectBooleanCheckbox value="#{processVariables['checkStick']}"/>
             
-            <label for="checkskisuit">Ski Suit</label>
-            <h:selectBooleanCheckbox value="#{processVariables['checkskisuit']}"/>  
+            <label for="checkSkiSuit">Ski Suit</label>
+            <h:selectBooleanCheckbox value="#{processVariables['checkSkiSuit']}"/>  
 		    		    	    
 	    </h:panelGrid>
 		

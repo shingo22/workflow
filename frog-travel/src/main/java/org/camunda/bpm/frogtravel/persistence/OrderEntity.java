@@ -35,10 +35,9 @@ public class OrderEntity implements java.io.Serializable {
 	private boolean isTransferIncluded;
 	private boolean isCateringIncluded;
 	private boolean isInstructionIncluded;
-	
 	private boolean isEquipIncluded;
-//	private List<String> equipmentList;
-	private HashMap<Integer, String> equipmentList;
+	//	private List<String> equipmentList;
+	private HashMap<Integer, String> equipmentList = new HashMap<Integer, String>();
 	
 	//payment information
 	protected PaymentInfo paymentInfo;
@@ -104,12 +103,6 @@ public class OrderEntity implements java.io.Serializable {
 	public void setCateringIncluded(boolean isCateringIncluded) {
 		this.isCateringIncluded = isCateringIncluded;
 	}
-	public boolean isEquipIncluded() {
-		return isEquipIncluded;
-	}
-	public void setEquipIncluded(boolean isEquipIncluded) {
-		this.isEquipIncluded = isEquipIncluded;
-	}
 	public boolean isInstructionIncluded() {
 		return isInstructionIncluded;
 	}
@@ -124,6 +117,12 @@ public class OrderEntity implements java.io.Serializable {
 //	public void setEquipmentList(List<String> equipmentList) {
 //		this.equipmentList = equipmentList;
 //	}
+	public boolean isEquipIncluded() {
+		return isEquipIncluded;
+	}
+	public void setEquipIncluded(boolean isEquipIncluded) {
+		this.isEquipIncluded = isEquipIncluded;
+	}
 	
 	public HashMap<Integer, String> getEquipmentList() {
 		return equipmentList;
