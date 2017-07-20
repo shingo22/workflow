@@ -44,11 +44,13 @@ public class OrderServiceBean {
 		    
 		    //order.setPaymentInfo((PaymentInfo) variables.get("paymentInfo"));
 
-		    /*
-		      Persist order instance and flush. After the flush the
-		      id of the order instance is set.
-		    */
+		    //persist
 		    entityManager.persist(orderEntity);
+		    
+		    //test output
+		    System.out.println("NOW PRINT ORDER ------------------------");
+		    System.out.println(orderEntity);
+		    
 		    entityManager.flush();
 
 //		    // Remove no longer needed process variables

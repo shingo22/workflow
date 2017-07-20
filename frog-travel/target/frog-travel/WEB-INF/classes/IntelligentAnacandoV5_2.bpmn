@@ -249,7 +249,7 @@
       </dataInputAssociation>
     </serviceTask>
     <sequenceFlow id="SequenceFlow_1bivhy4" sourceRef="ExclusiveGateway_0jbjzdq" targetRef="sid-C2F85DE4-ECF1-4C83-80BA-4A0F49A12A9D" />
-    <businessRuleTask id="Task_1kdxitd" name="Business Logic" camunda:decisionRef="DecisionCheckAvailability">
+    <businessRuleTask id="Task_1kdxitd" name="Business Logic" camunda:resultVariable="checkAvailability" camunda:decisionRef="CheckOrder">
       <incoming>SequenceFlow_1bookus</incoming>
       <outgoing>SequenceFlow_1smo9ev</outgoing>
     </businessRuleTask>
