@@ -18,27 +18,30 @@
   
   <h:body>
     <h1>Choose your desirable date and destination</h1>
-    
     <h:form id="submitForm">
-    
-		<h:panelGrid columns="3" columnClasses="form-label,form-input,form-message error" footerClass="form-footer">
-			<h:outputLabel value="Arrive Date" for="arriveDate" />
-			<h:inputText id="arriveDate" value="#{processVariables['arriveDate']}"/>
+		<h:panelGrid columns="3">
+		
+			<label for="arriveDate">Arrive Date</label>
+			<h:inputText id="arriveDate" value="#{processVariables['arriveDate']}" required="true"/>
 			<h:message for="arriveDate"/>
 			
-			<h:outputLabel value="Return Date" for="returnDate" />
-			<h:inputText id="returnDate" value="#{processVariables['returnDate']}"/>
+			<label for="returnDate">Return Date</label>
+			<h:inputText id="returnDate" value="#{processVariables['returnDate']}" required="true"/>
 			<h:message for="returnDate"/>
 			
-			<h:outputLabel value="Destination" for="destination" />
+			<label for="destination">Destination</label>
 		    <h:inputText id="destination" value="#{processVariables['destination']}"/>
-			<h:message for="destination"/>
-		    
-			
-		</h:panelGrid>
-		<h:commandButton id="submit_button" value="Submit" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
-		<h:commandButton id="cancel_button" value="Cancel" action="#{camundaTaskForm.completeProcessInstanceForm()}" immediate="true" />
+		    <h:message for="destination"/>	  
 		
+		</h:panelGrid>
+		
+		 <!-- The button starts a new process instance. This ends the conversation and redirects us to the tasklist.
+
+           NOTE: Syntax is different when working on user task forms, see file "approveLoanRequest.xhtml".
+      -->
+		<h:commandButton id="submit_button" value="Continue" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
+		<h:commandButton id="cancel_button" value="Cancel" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
+		<h:messages style="color:red;margin:8px;" />
 	</h:form>
   </h:body>  
 </f:view>

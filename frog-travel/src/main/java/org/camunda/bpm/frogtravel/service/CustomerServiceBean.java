@@ -14,7 +14,7 @@ import org.camunda.bpm.frogtravel.persistence.Customer;
 
 @Stateless
 @Named
-public class UserServiceBean {
+public class CustomerServiceBean {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
