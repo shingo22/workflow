@@ -25,5 +25,7 @@ public class RequestSkiOasis implements java.io.Serializable {
 	private int oasisRequestId;
 	
 	
+	
+	
 
 }

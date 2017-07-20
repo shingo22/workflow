@@ -13,9 +13,9 @@
   </f:metadata>
   
   <h:head>
-    <title>Create Order</title>
-    
+    <title>Create Order</title>  
   </h:head>
+  
   <img src="hero-quvol.jpg" alt="ice" height="62" width="60" style="width: 1096px; height: 208px; "/><br/>
   <h:body>
     <h1>Create Order</h1>
@@ -27,7 +27,7 @@
 			<h:inputText id="firstName" value="#{processVariables['firstName']}" required="true"/>
 			
 			<label for="lastName">Last Name</label>
-			<h:inputText id="lastName" value="#{processVariables['lastName']}" required="true"/>
+			<h:inputText id="lastName" value="#t{processVariables['lastName']}" required="true"/>
 			
 			<label for="birthDate">Birth Date</label>
 		    <h:inputText id="birthDate" value="#{processVariables['birthDate']}"/>
@@ -49,8 +49,7 @@
 		    <h:inputText id="destination" value="#{processVariables['destination']}" />  
 		
 		</h:panelGrid>
-		
-		
+			
 
 		<h:panelGrid columns="2">
 		
@@ -66,8 +65,33 @@
             <label for="isEquipIncluded">Ski Equipments (Provided by SkiOasis)</label>
             <h:selectBooleanCheckbox value="#{processVariables['isEquipIncluded']}"/>
        
-            
 		</h:panelGrid>
+		
+		
+		<h3>Select Ski Equipments</h3>
+	    <h:panelGrid columns="2">
+		
+            <label for="checkski">Ski</label>
+            <h:selectBooleanCheckbox value="#{processVariables['checkski']}"/>
+            
+            <label for="checksnowboard">Snowboard</label>
+            <h:selectBooleanCheckbox value="#{processVariables['checksnowboard']}"/>
+            
+            <label for="checkverypopularsnowboard">Very popular snowboard</label>
+            <h:selectBooleanCheckbox value="#{processVariables['checkverypopularsnowboard']}"/>
+
+            <label for="checkhelmet">Helmet</label>
+            <h:selectBooleanCheckbox value="#{processVariables['checkhelmet']}"/>
+            
+            <label for="checkstick">Stick</label>
+            <h:selectBooleanCheckbox value="#{processVariables['checkstick']}"/>
+            
+            <label for="checkskisuit">Ski Suit</label>
+            <h:selectBooleanCheckbox value="#{processVariables['checkskisuit']}"/>  
+		    		    	    
+	    </h:panelGrid>
+		
+		
 		 <!-- The button starts a new process instance. This ends the conversation and redirects us to the tasklist.
 
            NOTE: Syntax is different when working on user task forms, see file "approveLoanRequest.xhtml".

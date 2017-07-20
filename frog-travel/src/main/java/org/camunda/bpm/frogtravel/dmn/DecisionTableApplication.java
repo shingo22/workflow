@@ -28,10 +28,10 @@ public class DecisionTableApplication extends ServletProcessApplication {
 //				 .putValue("containInstructor", orderEntity.isInstructionIncluded())
 //				 .putValue("containTransportation", orderEntity.isTransferIncluded());
 //	      
-	    DmnDecisionTableResult dishDecisionResult = decisionService.evaluateDecisionTableByKey("dish", variables);
-	    String desiredDish = dishDecisionResult.getSingleEntry();
-
-	    System.out.println("Desired dish: " + desiredDish);
+//	    DmnDecisionTableResult dishDecisionResult = decisionService.evaluateDecisionTableByKey("dish", variables);
+//	    String desiredDish = dishDecisionResult.getSingleEntry();
+//
+//	    System.out.println("Desired dish: " + desiredDish);
 	  }
 
 }

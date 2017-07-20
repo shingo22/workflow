@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.HashMap;
+import java.util.List;
 import java.util.TimeZone;
 
 import javax.persistence.Entity;
@@ -35,6 +37,8 @@ public class OrderEntity implements java.io.Serializable {
 	private boolean isInstructionIncluded;
 	
 	private boolean isEquipIncluded;
+//	private List<String> equipmentList;
+	private HashMap<Integer, String> equipmentList;
 	
 	//payment information
 	protected PaymentInfo paymentInfo;
@@ -113,12 +117,33 @@ public class OrderEntity implements java.io.Serializable {
 		this.isInstructionIncluded = isInstructionIncluded;
 	}
 	
+//	public List<String> getEquipmentList() {
+//		return equipmentList;
+//	}
+//	
+//	public void setEquipmentList(List<String> equipmentList) {
+//		this.equipmentList = equipmentList;
+//	}
+	
+	public HashMap<Integer, String> getEquipmentList() {
+		return equipmentList;
+	}
+	
+	public void setEquipmentList(HashMap<Integer, String> equipmentList) {
+		this.equipmentList = equipmentList;
+	}
+	
 	//payment information
 	public PaymentInfo getPaymentInfo() {
 		return paymentInfo;
 	}
 	public void setPaymentInfo(PaymentInfo paymentInfo) {
 		this.paymentInfo = paymentInfo;
+	}
+	
+	//add equipment to string list
+	public void addEquipment(Integer position, String equipment){
+		equipmentList.put(position, equipment);
 	}
 
 }

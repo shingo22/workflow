@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.camunda.bpm.frogtravel.persistence.*;
@@ -19,6 +20,8 @@ public class OrderServiceBean {
 	  // Inject the entity manager
 	  @PersistenceContext
 	  private EntityManager entityManager;
+	  
+	  OrderEntity orderObj;
 	  
 	  public void persistOrder(DelegateExecution delegateExecution) {
 		    // Create new order instance
@@ -42,6 +45,19 @@ public class OrderServiceBean {
 		    orderEntity.setCateringIncluded((Boolean) variables.get("isCateringIncluded"));
 		    orderEntity.setInstructionIncluded((Boolean) variables.get("isInstructionIncluded"));
 		    
+		    
+		    //orderEntity.setEquipmentList((List<String>) variables.get("skiEquipmentType"));
+		    
+		    orderEntity.addEquipment(1, variables.get("checkski").toString());
+		    orderEntity.addEquipment(2, variables.get("Snowboard").toString());
+		    orderEntity.addEquipment(3, variables.get("checkverypopularsnowboard").toString());
+		    orderEntity.addEquipment(4, variables.get("checkhelmet").toString());
+		    orderEntity.addEquipment(5, variables.get("checkstick").toString());
+		    orderEntity.addEquipment(6, variables.get("checkskisuit").toString());
+		    
+		    System.out.println("NOW PRINT EQUIPMENT LIST -----------------------");
+		    System.out.println(orderEntity.getEquipmentList());
+		    	    
 		    //order.setPaymentInfo((PaymentInfo) variables.get("paymentInfo"));
 
 		    //persist
@@ -51,12 +67,29 @@ public class OrderServiceBean {
 		    //test output
 		    System.out.println("NOW PRINT ORDER ------------------------");
 		    System.out.println(orderEntity);
+		    
+		    orderObj = orderEntity;
 
 //		    // Remove no longer needed process variables
 //		    delegateExecution.removeVariables(variables.keySet());
 //
 		    // Add newly created order id as process variable
 		    delegateExecution.setVariable("orderId", orderEntity.getOrderId());
+	  }
+	  
+	  
+	  //check accomodation
+	  public void checkAccomodation(DelegateExecution delegateExecution) {
+//		 orderObj.getDestination();
+//		 orderObj.getReturnTime();
+		 if (orderObj.getArriveTime() == "10-01-2017") {
+			 System.out.println("THE DESTINATION IS AVALIABLE FROM " + orderObj.getArriveTime() + " TO " + orderObj.getReturnTime());
+			
+			 delegateExecution.setVariable("isApproved", true);
+		 } else {
+			 delegateExecution.setVariable("isApproved", false);		 
+		 }
+		 
 	  }
 	
 }
