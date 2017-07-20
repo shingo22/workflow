@@ -1,6 +1,7 @@
 package org.camunda.bpm.frogtravel.service;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 import javax.ejb.Stateless;
 import javax.inject.Named;
