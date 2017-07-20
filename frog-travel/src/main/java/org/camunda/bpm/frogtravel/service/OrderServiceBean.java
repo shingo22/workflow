@@ -46,12 +46,11 @@ public class OrderServiceBean {
 
 		    //persist
 		    entityManager.persist(orderEntity);
+		    entityManager.flush();
 		    
 		    //test output
 		    System.out.println("NOW PRINT ORDER ------------------------");
 		    System.out.println(orderEntity);
-		    
-		    entityManager.flush();
 
 //		    // Remove no longer needed process variables
 //		    delegateExecution.removeVariables(variables.keySet());

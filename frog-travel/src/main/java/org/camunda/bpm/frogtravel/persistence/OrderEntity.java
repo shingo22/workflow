@@ -32,8 +32,9 @@ public class OrderEntity implements java.io.Serializable {
 	
 	private boolean isTransferIncluded;
 	private boolean isCateringIncluded;
-	private boolean isEquipIncluded;
 	private boolean isInstructionIncluded;
+	
+	private boolean isEquipIncluded;
 	
 	//payment information
 	protected PaymentInfo paymentInfo;
