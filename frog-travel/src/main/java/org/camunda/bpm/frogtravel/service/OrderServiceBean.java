@@ -102,5 +102,29 @@ public class OrderServiceBean {
 		 }
 		 
 	  }
+	  
+	  //check transportation
+	  public void checkTransfer(DelegateExecution delegateExecution) {	  
+		 
+		 System.out.println("Transfer");		 
+	  }
+	  
+	  //check catering
+	  public void checkCatering(DelegateExecution delegateExecution) {	  
+		 
+		 System.out.println("Catering");		 
+	  }
+	  
+	  //check equipment
+	  public void checkEquipment(DelegateExecution delegateExecution) {	  
+		 
+		 System.out.println("Equipment");		 
+	  }
+	  
+	  //check instruction
+	  public void checkInstruction(DelegateExecution delegateExecution) {	  
+		 
+		 System.out.println("Instruction");		 
+	  }
 	
 }
