@@ -24,10 +24,10 @@ public class OrderServiceBean {
 	  @PersistenceContext
 	  private EntityManager entityManager;
 	  
-	  @Inject
-	  private TaskForm taskForm;
+//	  @Inject
+//	  private TaskForm taskForm;
 	  
-	  OrderEntity orderObj;
+//	  OrderEntity orderObj;
 	  
 	  public void persistOrder(DelegateExecution delegateExecution) {
 		    // Create new order instance
@@ -74,7 +74,7 @@ public class OrderServiceBean {
 		    System.out.println("NOW PRINT ORDER ------------------------");
 		    System.out.println(orderEntity);
 		    
-		    orderObj = orderEntity;
+//		    orderObj = orderEntity;
 
 //		    // Remove no longer needed process variables
 //		    delegateExecution.removeVariables(variables.keySet());
@@ -88,9 +88,13 @@ public class OrderServiceBean {
 	  public void checkAccommodation(DelegateExecution delegateExecution) {	  
 		 // Get all process variables
 		 
+		 String theArriveTime = (String) delegateExecution.getVariables().get("arriveDate"); 
+		 String theReturnTime = (String) delegateExecution.getVariables().get("returnDate");
+		 System.out.println("NOW PRINT THE ARRIVEDATE--------");
+		 System.out.println(theArriveTime);
 		 
-		 if ((String) delegateExecution.getVariables().get("arriveDate") == "10-01-2017") {
-			 System.out.println("THE DESTINATION IS AVALIABLE FROM " + orderObj.getArriveTime() + " TO " + orderObj.getReturnTime());
+		 if (theArriveTime.equals("10-01-2017")) {
+			 System.out.println("THE DESTINATION IS AVALIABLE FROM " + theArriveTime + " TO " + theReturnTime);
 			
 			 delegateExecution.setVariable("isApproved", true);
 		 } else {

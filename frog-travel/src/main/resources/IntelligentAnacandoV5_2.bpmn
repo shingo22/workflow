@@ -370,7 +370,7 @@
     </endEvent>
     <sequenceFlow id="SequenceFlow_1nl0tgu" sourceRef="Task_0pbkez4" targetRef="EndEvent_1402hpr" />
     <sequenceFlow id="SequenceFlow_0rx1sfm" sourceRef="ExclusiveGateway_0jbjzdq" targetRef="ExclusiveGateway_1deyg0g">
-      <conditionExpression xsi:type="tFormalExpression">${isApproved==ture}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${isApproved==true}</conditionExpression>
     </sequenceFlow>
     <serviceTask id="sid-3EB91CCD-BD6C-451C-B924-BC1EF122318C" name="Check Availability of Transfer" implementation="##WebService" camunda:class="TransferCheck">
       <extensionElements>
