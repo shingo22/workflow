@@ -151,6 +151,48 @@ public class OrderServiceBean {
 		 System.out.println("nortifyCustomer");		 
 	  }
 	  
+	  public JsonObject constructJsonObject(JsonObject jsonObj, DelegateExecution delegateExecution) {
+		  //
+		  
+		   jsonObj = Json.createObjectBuilder()
+					 .add("messageName", "ExternalOrder")
+					 .add("variables", Json.createObjectBuilder()
+							           .add("firstName", Json.createObjectBuilder()
+							        		             .add("value", (String) delegateExecution.getVariables().get("firstName"))
+							        		             .add("type", "String")
+							        		             .add("valueInfo", "{}"))
+							           .add("lastName", Json.createObjectBuilder()
+							        		   			.add("value", (String) delegateExecution.getVariables().get("lastName"))
+							        		   			.add("type", "String")
+							        		   			.add("valueInfo", "{}"))
+							           .add("orderDate", Json.createObjectBuilder()
+							        		   			 .add("value", "NO ORDER DATE")
+							        		   			 .add("type", "String")
+							        		   			 .add("valueInfo", "{}"))
+							           .add("deliveryDate", Json.createObjectBuilder()
+							        		   				.add("value", "NO DELIVERY DATE")
+							        		   				.add("type", "String")
+							        		   				.add("valueInfo", "{}"))
+							           .add("orderType", Json.createObjectBuilder()
+							        		   			 .add("value", "frog")
+							        		   			 .add("type", "String")
+							        		   			 .add("valueInfo", "{}"))
+							           .add("isBuying", Json.createObjectBuilder()
+							        		   			.add("value", "false")
+							        		   			.add("type", "String")
+							        		   			.add("valueInfo", "{}"))
+							           .add("extProcessId", Json.createObjectBuilder()
+							        		   				.add("value", (String) delegateExecution.getProcessInstanceId())
+							        		   				.add("type", "String")
+							        		   				.add("valueInfo", "{}"))
+							           .add("equipmentList", Json.createArrayBuilder()
+							        		   				 .add("{}")
+							        		   				 .add("{}")))
+					 .build();  
+		   
+		   return jsonObj;
+	  }
+	  
 	  
 	  //send message to Ski Oasis
 	  public void sendToSkiOasis(DelegateExecution delegateExecution) throws Exception {
@@ -160,41 +202,44 @@ public class OrderServiceBean {
 			RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://requestb.in/u6iwxcu6");
 					
 			//construct a json object to fullfill the requested format from SkiOasis
-			JsonObject jsonObj = Json.createObjectBuilder()
-								 .add("messageName", "ExternalOrder")
-								 .add("variables", Json.createObjectBuilder()
-										           .add("firstName", Json.createObjectBuilder()
-										        		             .add("value", (String) delegateExecution.getVariables().get("firstName"))
-										        		             .add("type", "String")
-										        		             .add("valueInfo", "{}"))
-										           .add("lastName", Json.createObjectBuilder()
-										        		   			.add("value", (String) delegateExecution.getVariables().get("lastName"))
-										        		   			.add("type", "String")
-										        		   			.add("valueInfo", "{}"))
-										           .add("orderDate", Json.createObjectBuilder()
-										        		   			 .add("value", "NO ORDER DATE")
-										        		   			 .add("type", "String")
-										        		   			 .add("valueInfo", "{}"))
-										           .add("deliveryDate", Json.createObjectBuilder()
-										        		   				.add("value", "NO DELIVERY DATE")
-										        		   				.add("type", "String")
-										        		   				.add("valueInfo", "{}"))
-										           .add("orderType", Json.createObjectBuilder()
-										        		   			 .add("value", "frog")
-										        		   			 .add("type", "String")
-										        		   			 .add("valueInfo", "{}"))
-										           .add("isBuying", Json.createObjectBuilder()
-										        		   			.add("value", "false")
-										        		   			.add("type", "String")
-										        		   			.add("valueInfo", "{}"))
-										           .add("extProcessId", Json.createObjectBuilder()
-										        		   				.add("value", (String) delegateExecution.getProcessInstanceId())
-										        		   				.add("type", "String")
-										        		   				.add("valueInfo", "{}"))
-										           .add("equipmentList", Json.createArrayBuilder()
-										        		   				 .add("{}")
-										        		   				 .add("{}")))
-								 .build();
+			JsonObject jsonObj = null;
+			jsonObj = constructJsonObject(jsonObj, delegateExecution);
+			
+//			JsonObject jsonObj = Json.createObjectBuilder()
+//								 .add("messageName", "ExternalOrder")
+//								 .add("variables", Json.createObjectBuilder()
+//										           .add("firstName", Json.createObjectBuilder()
+//										        		             .add("value", (String) delegateExecution.getVariables().get("firstName"))
+//										        		             .add("type", "String")
+//										        		             .add("valueInfo", "{}"))
+//										           .add("lastName", Json.createObjectBuilder()
+//										        		   			.add("value", (String) delegateExecution.getVariables().get("lastName"))
+//										        		   			.add("type", "String")
+//										        		   			.add("valueInfo", "{}"))
+//										           .add("orderDate", Json.createObjectBuilder()
+//										        		   			 .add("value", "NO ORDER DATE")
+//										        		   			 .add("type", "String")
+//										        		   			 .add("valueInfo", "{}"))
+//										           .add("deliveryDate", Json.createObjectBuilder()
+//										        		   				.add("value", "NO DELIVERY DATE")
+//										        		   				.add("type", "String")
+//										        		   				.add("valueInfo", "{}"))
+//										           .add("orderType", Json.createObjectBuilder()
+//										        		   			 .add("value", "frog")
+//										        		   			 .add("type", "String")
+//										        		   			 .add("valueInfo", "{}"))
+//										           .add("isBuying", Json.createObjectBuilder()
+//										        		   			.add("value", "false")
+//										        		   			.add("type", "String")
+//										        		   			.add("valueInfo", "{}"))
+//										           .add("extProcessId", Json.createObjectBuilder()
+//										        		   				.add("value", (String) delegateExecution.getProcessInstanceId())
+//										        		   				.add("type", "String")
+//										        		   				.add("valueInfo", "{}"))
+//										           .add("equipmentList", Json.createArrayBuilder()
+//										        		   				 .add("{}")
+//										        		   				 .add("{}")))
+//								 .build();
 										   
 										 
 			//assign to string entity
