@@ -1,5 +1,10 @@
 package org.camunda.bpm.frogtravel.service;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 
@@ -141,5 +146,27 @@ public class OrderServiceBean {
 		 
 		 System.out.println("nortifyCustomer");		 
 	  }
+	  
+	  //send message to Ski Oasis
+	  public void sendToSkiOasis(DelegateExecution delegateExecution) throws Exception {
+			// build HTTP request with all variables as parameters
+			HttpClient client = HttpClients.createDefault();
+//			HttpPut put = new HttpPut("http://requestb.in/<your-request-bin>");
+			RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://requestb.in/154sr8r1");
+			
+			requestBuilder.addParameter("ProcessInstanceId", delegateExecution.getProcessInstanceId());
+			requestBuilder.addParameter("TEST MESSAGE", "TEST FOR API");
+			
+//			JSONObject jsonObj = ;
+			
+			// execute request
+			HttpUriRequest request = requestBuilder.build();
+			System.out.println("NOW PRINT REQUEST CONTENT---------");
+			System.out.println(request);
+			HttpResponse response = client.execute(request);
+			// log debug information
+			System.out.println(request.getURI());
+			System.out.println(response.getStatusLine());
+		}
 	
 }
