@@ -257,13 +257,13 @@
       <incoming>SequenceFlow_0btl8qf</incoming>
     </endEvent>
     <sequenceFlow id="SequenceFlow_1g6la64" name="Yes" sourceRef="sid-8CFF02F8-36D1-4208-A9AF-7C1C9E5185D6" targetRef="Task_08jwvub">
-      <conditionExpression xsi:type="tFormalExpression">Yes</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${everythingAvailable==true}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="sid-E398E82E-AB64-4297-96A6-A49283F3F6F5" name="No" sourceRef="sid-8CFF02F8-36D1-4208-A9AF-7C1C9E5185D6" targetRef="sid-B8B0428A-E989-4374-B620-D83A4E336233">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
-      <conditionExpression xsi:type="tFormalExpression">No</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${everythingAvailable==false}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="SequenceFlow_0bg169s" sourceRef="Task_08jwvub" targetRef="sid-C90CBA9A-629B-454B-9252-ED6DF735E685" />
     <sequenceFlow id="sid-3AB645CA-ECC7-41A1-AF61-AFFF53C3C248" name="" sourceRef="sid-C90CBA9A-629B-454B-9252-ED6DF735E685" targetRef="ExclusiveGateway_0jumb08">
@@ -445,7 +445,7 @@
   <message id="Message_1rcd3a1" name="Message_13s63m3" />
   <message id="Message_1v9thbs" name="Message_0e1tp5b" />
   <message id="Message_1qymdit" name="Message_1drkn7u" />
-  <message id="Message_1embxw5" name="ReceiveEquipAvailability" />
+  <message id="Message_1embxw5" name="SkiOasisAvailability" />
   <message id="Message_19nk099" name="StartRequest" />
   <bpmndi:BPMNDiagram id="sid-7aee84f3-abc9-4cf9-a55b-17c98c425456">
     <bpmndi:BPMNPlane id="sid-c6148aa4-2b90-4a01-b949-788a4cccdb71" bpmnElement="sid-c8a8137b-e5ae-4d76-b53e-c94efa823a4d">
