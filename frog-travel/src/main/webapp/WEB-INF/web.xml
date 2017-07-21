@@ -3,6 +3,13 @@
   <display-name> 
   	 Todolist MVC
   </display-name>
-
+<servlet>
+<servlet-name>ski-oasis</servlet-name>
+<servlet-class>org.camunda.bpm.frogtravel.servlet.SkiOasisServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>ski-oasis</servlet-name>
+<url-pattern>/ski-oasis</url-pattern>
+</servlet-mapping>
 
 </web-app>

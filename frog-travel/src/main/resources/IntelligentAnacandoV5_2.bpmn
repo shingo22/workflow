@@ -206,7 +206,7 @@
       <outgoing>SequenceFlow_02xq8p4</outgoing>
       <messageEventDefinition messageRef="Message_19nk099" />
     </startEvent>
-    <sendTask id="sid-B8B0428A-E989-4374-B620-D83A4E336233" name="Notify Customer" implementation="##WebService" camunda:class="AskModification">
+    <sendTask id="sid-B8B0428A-E989-4374-B620-D83A4E336233" name="Notify Customer" implementation="##WebService" camunda:expression="${orderServiceBean.nortifyCustomer(execution)}">
       <extensionElements>
         <signavio:signavioMetaData metaKey="bgcolor" metaValue="#ffffcc" />
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
@@ -217,7 +217,7 @@
       <incoming>sid-E398E82E-AB64-4297-96A6-A49283F3F6F5</incoming>
       <outgoing>SequenceFlow_1l7irpg</outgoing>
     </sendTask>
-    <sendTask id="Task_08jwvub" name="Show Order Details" camunda:class="ShowOrderDetailDelegate">
+    <sendTask id="Task_08jwvub" name="Show Order Details" camunda:expression="${orderServiceBean.sendOrderDetails(execution)}">
       <incoming>SequenceFlow_1g6la64</incoming>
       <outgoing>SequenceFlow_0bg169s</outgoing>
     </sendTask>

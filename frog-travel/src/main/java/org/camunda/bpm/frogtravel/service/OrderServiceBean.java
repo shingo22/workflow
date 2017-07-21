@@ -81,6 +81,9 @@ public class OrderServiceBean {
 //
 		    // Add newly created order id as process variable
 		    delegateExecution.setVariable("orderId", orderEntity.getOrderId());
+		    
+		    // Set initial value for availability of everything
+		    delegateExecution.setVariable("everythingAvailable", true);
 	  }
 	  
 	  
@@ -125,6 +128,18 @@ public class OrderServiceBean {
 	  public void checkInstruction(DelegateExecution delegateExecution) {	  
 		 
 		 System.out.println("Instruction");		 
+	  }
+	  
+	  //check instruction
+	  public void sendOrderDetails(DelegateExecution delegateExecution) {	  
+		 
+		 System.out.println("OrderDetails");		 
+	  }
+	  
+	  //check instruction
+	  public void nortifyCustomer(DelegateExecution delegateExecution) {	  
+		 
+		 System.out.println("nortifyCustomer");		 
 	  }
 	
 }
