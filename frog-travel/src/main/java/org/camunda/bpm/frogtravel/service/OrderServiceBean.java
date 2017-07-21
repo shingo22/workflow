@@ -1,11 +1,23 @@
 package org.camunda.bpm.frogtravel.service;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.HttpClients;
+
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.impl.util.json.JSONObject;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.json.Json;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -24,10 +36,10 @@ public class OrderServiceBean {
 	  @PersistenceContext
 	  private EntityManager entityManager;
 	  
-//	  @Inject
-//	  private TaskForm taskForm;
+	  @Inject
+	  private TaskForm taskForm;  
 	  
-//	  OrderEntity orderObj;
+	  OrderEntity orderObj;
 	  
 	  public void persistOrder(DelegateExecution delegateExecution) {
 		    // Create new order instance
@@ -40,20 +52,16 @@ public class OrderServiceBean {
 		    orderEntity.setFirstName((String) variables.get("firstName"));
 		    orderEntity.setLastName((String) variables.get("lastName"));
 		    orderEntity.setBirthDate((String) variables.get("birthDate"));
-		    orderEntity.setEmail((String) variables.get("email"));
-		    
+		    orderEntity.setEmail((String) variables.get("email"));	    
 		    orderEntity.setDestination((String) variables.get("destination"));
 		    orderEntity.setArriveTime((String) variables.get("arriveDate"));
 		    orderEntity.setReturnTime((String) variables.get("returnDate"));
-		    
 		    orderEntity.setTransferIncluded((Boolean) variables.get("isTransferIncluded"));
 		    orderEntity.setEquipIncluded((Boolean) variables.get("isEquipIncluded"));
 		    orderEntity.setCateringIncluded((Boolean) variables.get("isCateringIncluded"));
 		    orderEntity.setInstructionIncluded((Boolean) variables.get("isInstructionIncluded"));
 		    
-		    
-		    //orderEntity.setEquipmentList((List<String>) variables.get("skiEquipmentType"));
-		    
+		    //put value into hash map
 		    orderEntity.addEquipment((Integer)1, variables.get("checkSki").toString());
 		    orderEntity.addEquipment((Integer)2, variables.get("checkSnowboard").toString());
 		    orderEntity.addEquipment((Integer)3, variables.get("checkVeryPopularSnowboard").toString());
@@ -61,7 +69,7 @@ public class OrderServiceBean {
 		    orderEntity.addEquipment((Integer)5, variables.get("checkStick").toString());
 		    orderEntity.addEquipment((Integer)6, variables.get("checkSkiSuit").toString());
 		    
-		    System.out.println("NOW PRINT EQUIPMENT LIST -----------------------");
+		    System.out.println("------------------ NOW PRINT EQUIPMENT LIST -------------------");
 		    System.out.println(orderEntity.getEquipmentList());
 		    	    
 		    //order.setPaymentInfo((PaymentInfo) variables.get("paymentInfo"));
@@ -71,11 +79,10 @@ public class OrderServiceBean {
 		    entityManager.flush();
 		    
 		    //test output
-		    System.out.println("NOW PRINT ORDER ------------------------");
+		    System.out.println("------------------ NOW PRINT ORDER --------------------");
 		    System.out.println(orderEntity);
 		    
-//		    orderObj = orderEntity;
-
+		    orderObj = orderEntity;
 //		    // Remove no longer needed process variables
 //		    delegateExecution.removeVariables(variables.keySet());
 //
@@ -88,23 +95,22 @@ public class OrderServiceBean {
 	  
 	  
 	  //check accommodation
-	  public void checkAccommodation(DelegateExecution delegateExecution) {	  
-		 // Get all process variables
-		 
+	  public void checkAccommodation(DelegateExecution delegateExecution) {	 
+		  
 		 String theArriveTime = (String) delegateExecution.getVariables().get("arriveDate"); 
 		 String theReturnTime = (String) delegateExecution.getVariables().get("returnDate");
-		 System.out.println("NOW PRINT THE ARRIVEDATE--------");
+		 System.out.println("---------NOW PRINT THE ARRIVEDATE--------");
 		 System.out.println(theArriveTime);
 		 
 		 if (theArriveTime.equals("10-01-2017")) {
-			 System.out.println("THE DESTINATION IS AVALIABLE FROM " + theArriveTime + " TO " + theReturnTime);
+			 System.out.println("THE DESTINATION IS AVALIABLE");
 			
 			 delegateExecution.setVariable("isApproved", true);
 		 } else {
 			 delegateExecution.setVariable("isApproved", false);		 
-		 }
-		 
+		 }		 
 	  }
+	  
 	  
 	  //check transportation
 	  public void checkTransfer(DelegateExecution delegateExecution) {	  
@@ -139,7 +145,81 @@ public class OrderServiceBean {
 	  //check instruction
 	  public void nortifyCustomer(DelegateExecution delegateExecution) {	  
 		 
-		 System.out.println("nortifyCustomer");		 
+		 System.out.println("NotifyCustomer");		 
 	  }
-	
+	  
+	  public JsonObject constructJsonObject(JsonObject jsonObj, DelegateExecution delegateExecution) {
+		   //get equipment type index from the hash map
+		   HashMap<Integer, String> skiEquipmenList = orderObj.getEquipmentList();
+		   System.out.println("THE SIZE OF EQUIPMENTLIST IS: " + skiEquipmenList.size());
+		   for(int i=0; i<skiEquipmenList.size(); i++) {
+			   
+		   }
+		  
+		   //construct a JSON object
+		   jsonObj = Json.createObjectBuilder()
+					 .add("messageName", "ExternalOrder")
+					 .add("variables", Json.createObjectBuilder()
+							           .add("firstName", Json.createObjectBuilder()
+							        		             .add("value", (String) delegateExecution.getVariables().get("firstName"))
+							        		             .add("type", "String")
+							        		             .add("valueInfo", "{}"))
+							           .add("lastName", Json.createObjectBuilder()
+							        		   			.add("value", (String) delegateExecution.getVariables().get("lastName"))
+							        		   			.add("type", "String")
+							        		   			.add("valueInfo", "{}"))
+							           .add("orderDate", Json.createObjectBuilder()
+							        		   			 .add("value", "NO ORDER DATE")
+							        		   			 .add("type", "String")
+							        		   			 .add("valueInfo", "{}"))
+							           .add("deliveryDate", Json.createObjectBuilder()
+							        		   				.add("value", "NO DELIVERY DATE")
+							        		   				.add("type", "String")
+							        		   				.add("valueInfo", "{}"))
+							           .add("orderType", Json.createObjectBuilder()
+							        		   			 .add("value", "frog")
+							        		   			 .add("type", "String")
+							        		   			 .add("valueInfo", "{}"))
+							           .add("isBuying", Json.createObjectBuilder()
+							        		   			.add("value", "false")
+							        		   			.add("type", "String")
+							        		   			.add("valueInfo", "{}"))
+							           .add("extProcessId", Json.createObjectBuilder()
+							        		   				.add("value", (String) delegateExecution.getProcessInstanceId())
+							        		   				.add("type", "String")
+							        		   				.add("valueInfo", "{}"))
+							           .add("equipmentList", Json.createArrayBuilder()
+							        		   				 .add("{}")
+							        		   				 .add("{}")))
+					 .build();  
+		   
+		   return jsonObj;
+	  }
+	  
+	  
+	  //send message to Ski Oasis
+	  public void sendToSkiOasis(DelegateExecution delegateExecution) throws Exception {
+			// build HTTP request with all variables as parameters
+			HttpClient client = HttpClients.createDefault();
+//			HttpPut put = new HttpPut("http://requestb.in/<your-request-bin>");
+			RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://requestb.in/u6iwxcu6");
+					
+			//construct a JSON object to fulfill the requested format from SkiOasis
+			JsonObject jsonObj = null;
+			jsonObj = constructJsonObject(jsonObj, delegateExecution);
+										 
+			//assign to string entity
+			StringEntity entity = new StringEntity(jsonObj.toString());
+
+			requestBuilder.setHeader("Content-type", "application/json");
+			requestBuilder.setEntity(entity);
+			// execute request
+			HttpUriRequest request = requestBuilder.build();
+			System.out.println("---------NOW PRINT REQUEST CONTENT---------");
+			System.out.println(request);
+			HttpResponse response = client.execute(request);
+			// log debug information
+			System.out.println(request.getURI());
+			System.out.println(response.getStatusLine());		
+		}	
 }

@@ -42,6 +42,12 @@
       <groupId>org.camunda.bpm.javaee</groupId>
       <artifactId>camunda-ejb-client</artifactId>
     </dependency>
+    
+    <dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpclient</artifactId>
+		<version>4.5.1</version>
+	</dependency>
 
     <!-- Java EE 7 Specification -->
     <dependency>
