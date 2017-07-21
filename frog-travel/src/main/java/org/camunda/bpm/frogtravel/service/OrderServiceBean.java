@@ -15,12 +15,16 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
-
+import javax.json.JsonValue;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -39,11 +43,22 @@ public class OrderServiceBean {
 	  @Inject
 	  private TaskForm taskForm;  
 	  
-	  OrderEntity orderObj;
+	  OrderEntity orderObj = null;
 	  
 	  public void persistOrder(DelegateExecution delegateExecution) {
 		    // Create new order instance
 		    OrderEntity orderEntity = new OrderEntity();
+		        
+//		    // Persisting destination record
+//		    DestinationServiceBean destinations = new DestinationServiceBean();
+//		    Collection<DestinationDB> dess = destinations.getAll();
+//		    for(DestinationDB des: dess){
+//		    	entityManager.persist(des);
+//		    	entityManager.flush();
+//		    	System.out.println("NOW PRINT RECORD ------------------");
+//		    	System.out.println(des.getArrivalTime().toString());
+//		    }
+		    
 
 		    // Get all process variables
 		    Map<String, Object> variables = delegateExecution.getVariables();
@@ -124,12 +139,6 @@ public class OrderServiceBean {
 		 System.out.println("Catering");		 
 	  }
 	  
-	  //check equipment
-	  public void checkEquipment(DelegateExecution delegateExecution) {	  
-		 
-		 System.out.println("Equipment");		 
-	  }
-	  
 	  //check instruction
 	  public void checkInstruction(DelegateExecution delegateExecution) {	  
 		 
@@ -148,14 +157,30 @@ public class OrderServiceBean {
 		 System.out.println("NotifyCustomer");		 
 	  }
 	  
-	  public JsonObject constructJsonObject(JsonObject jsonObj, DelegateExecution delegateExecution) {
+	  
+	@SuppressWarnings("unchecked")
+	public JsonObject constructJsonObject(JsonObject jsonObj, DelegateExecution delegateExecution) {
 		   //get equipment type index from the hash map
 		   HashMap<Integer, String> skiEquipmenList = orderObj.getEquipmentList();
+		   List<String> list = new ArrayList<String> ();
+//		   String stringArray[] = null;
+		   JsonArray test = Json.createArrayBuilder().build();
+		   
 		   System.out.println("THE SIZE OF EQUIPMENTLIST IS: " + skiEquipmenList.size());
 		   for(int i=0; i<skiEquipmenList.size(); i++) {
-			   
+			   if(skiEquipmenList.get(i) == "true") {
+				  list.add(Integer.toString(i));
+				  
+//				  equiplist.add(Integer.toString(i));   
+			   }
 		   }
-		  
+		   
+		   test.add((JsonValue) Arrays.asList(list));
+		   System.out.println("-------------- NOW PRINT THE LIST: " + list + " --------------");
+//		   JsonArray equiplist = Json.createArrayBuilder().add("equipment", list);
+		   JsonObject listObj = null;
+//		   listObj.put("equipmentList", list);
+//		   equiplist.add("equipmentList", list);
 		   //construct a JSON object
 		   jsonObj = Json.createObjectBuilder()
 					 .add("messageName", "ExternalOrder")
@@ -189,25 +214,26 @@ public class OrderServiceBean {
 							        		   				.add("type", "String")
 							        		   				.add("valueInfo", "{}"))
 							           .add("equipmentList", Json.createArrayBuilder()
-							        		   				 .add("{}")
 							        		   				 .add("{}")))
 					 .build();  
+		   System.out.println(jsonObj);
 		   
 		   return jsonObj;
 	  }
 	  
 	  
+	  //check equipment
 	  //send message to Ski Oasis
-	  public void sendToSkiOasis(DelegateExecution delegateExecution) throws Exception {
+	  public void checkEquipment(DelegateExecution delegateExecution) throws Exception {
 			// build HTTP request with all variables as parameters
 			HttpClient client = HttpClients.createDefault();
 //			HttpPut put = new HttpPut("http://requestb.in/<your-request-bin>");
-			RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://requestb.in/u6iwxcu6");
+			RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://requestb.in/wkyz21wk");
 					
 			//construct a JSON object to fulfill the requested format from SkiOasis
 			JsonObject jsonObj = null;
 			jsonObj = constructJsonObject(jsonObj, delegateExecution);
-										 
+							 
 			//assign to string entity
 			StringEntity entity = new StringEntity(jsonObj.toString());
 

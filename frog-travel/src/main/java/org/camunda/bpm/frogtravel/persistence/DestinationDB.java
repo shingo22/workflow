@@ -1,5 +1,7 @@
 package org.camunda.bpm.frogtravel.persistence;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -39,10 +41,39 @@ public class DestinationDB implements java.io.Serializable {
 		
 	} 
 	
-	static{
-		DestinationDB des1 = new DestinationDB("2017-09-06", "2017-09-25", true, true, false, true);
-		DestinationDB des2 = new DestinationDB("2017-09-10", "2017-09-20", false, true, false, true);
+//	static{
+//		DestinationDB des1 = new DestinationDB("2017-09-06", "2017-09-25", true, true, false, true);
+//		DestinationDB des2 = new DestinationDB("2017-09-10", "2017-09-20", false, true, false, true);
+//	}
+/////////////////////////////////////////
+	
+	@Override
+	public boolean equals(Object o) {
+		// self check
+		if (this == o)
+			return true;
+		// null check
+		if (o == null)
+			return false;
+		// type check and cast
+		if (getClass() != o.getClass())
+			return false;
+		DestinationDB des = (DestinationDB) o;
+		// field comparison
+		return Objects.equals(arrivalTime, des.arrivalTime)
+				&& Objects.equals(returnTime, des.returnTime)
+				&& Objects.equals(isTransferIncluded, des.isTransferIncluded)
+				&& Objects.equals(isAccomodationIncluded, des.isAccomodationIncluded)
+				&& Objects.equals(isCateringIncluded, des.isCateringIncluded)
+				&& Objects.equals(this.isInstructionIncluded, des.isInstructionIncluded);
 	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(arrivalTime, returnTime, isTransferIncluded, isAccomodationIncluded, isCateringIncluded, isInstructionIncluded);
+	}
+
+////////////////////////////////////////
 	
 	public String getArrivalTime() {
 		return arrivalTime;
