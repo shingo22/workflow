@@ -4,13 +4,18 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.impl.util.json.JSONObject;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.json.Json;
+import javax.json.JsonBuilderFactory;
+import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -107,8 +112,7 @@ public class OrderServiceBean {
 			 delegateExecution.setVariable("isApproved", true);
 		 } else {
 			 delegateExecution.setVariable("isApproved", false);		 
-		 }
-		 
+		 }		 
 	  }
 	  
 	  //check transportation
@@ -152,21 +156,38 @@ public class OrderServiceBean {
 			// build HTTP request with all variables as parameters
 			HttpClient client = HttpClients.createDefault();
 //			HttpPut put = new HttpPut("http://requestb.in/<your-request-bin>");
-			RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://requestb.in/154sr8r1");
+			RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://requestb.in/u6iwxcu6");
+					
+			//construct a json object to fullfill the requested format from SkiOasis
+			JsonObject jsonObj = Json.createObjectBuilder()
+								 .add("messageName", "ExternalOrder")
+								 .add("variables", Json.createObjectBuilder()
+										 .add("firstName", (String) delegateExecution.getVariables().get("firstName"))
+										   .add("lastName", (String) delegateExecution.getVariables().get("lastName"))
+										   .add("orderDate", "09-01-2017")
+										   .add("delivertDate", (String) delegateExecution.getVariables().get("arriveDate"))
+										   .add("orderType", "frog")
+										   .add("isBuying", "false")
+										   .add("extProcessId", delegateExecution.getProcessInstanceId()))
+						 .build();
 			
-			requestBuilder.addParameter("ProcessInstanceId", delegateExecution.getProcessInstanceId());
-			requestBuilder.addParameter("TEST MESSAGE", "TEST FOR API");
+			//assign to string entity
+			StringEntity entity = new StringEntity(jsonObj.toString());
 			
-//			JSONObject jsonObj = ;
-			
+//			requestBuilder.addParameter("ProcessInstanceId", delegateExecution.getProcessInstanceId());
+//			requestBuilder.addParameter("TEST MESSAGE", "TEST FOR API");
+//			requestBuilder.addParameter("firstName", (String) delegateExecution.getVariables().get("firstName"));
+			requestBuilder.setHeader("Content-type", "application/json");
+			requestBuilder.setEntity(entity);
 			// execute request
 			HttpUriRequest request = requestBuilder.build();
-			System.out.println("NOW PRINT REQUEST CONTENT---------");
+			System.out.println("---------NOW PRINT REQUEST CONTENT---------");
 			System.out.println(request);
 			HttpResponse response = client.execute(request);
 			// log debug information
 			System.out.println(request.getURI());
 			System.out.println(response.getStatusLine());
+			
 		}
 	
 }
