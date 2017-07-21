@@ -37,7 +37,7 @@ public class OrderServiceBean {
 	  private EntityManager entityManager;
 	  
 	  @Inject
-	  private TaskForm taskForm;
+	  private TaskForm taskForm;  
 	  
 	  OrderEntity orderObj;
 	  
@@ -52,18 +52,16 @@ public class OrderServiceBean {
 		    orderEntity.setFirstName((String) variables.get("firstName"));
 		    orderEntity.setLastName((String) variables.get("lastName"));
 		    orderEntity.setBirthDate((String) variables.get("birthDate"));
-		    orderEntity.setEmail((String) variables.get("email"));
-		    
+		    orderEntity.setEmail((String) variables.get("email"));	    
 		    orderEntity.setDestination((String) variables.get("destination"));
 		    orderEntity.setArriveTime((String) variables.get("arriveDate"));
 		    orderEntity.setReturnTime((String) variables.get("returnDate"));
-		    
 		    orderEntity.setTransferIncluded((Boolean) variables.get("isTransferIncluded"));
 		    orderEntity.setEquipIncluded((Boolean) variables.get("isEquipIncluded"));
 		    orderEntity.setCateringIncluded((Boolean) variables.get("isCateringIncluded"));
 		    orderEntity.setInstructionIncluded((Boolean) variables.get("isInstructionIncluded"));
 		    
-		    //
+		    //put value into hash map
 		    orderEntity.addEquipment((Integer)1, variables.get("checkSki").toString());
 		    orderEntity.addEquipment((Integer)2, variables.get("checkSnowboard").toString());
 		    orderEntity.addEquipment((Integer)3, variables.get("checkVeryPopularSnowboard").toString());
@@ -84,8 +82,7 @@ public class OrderServiceBean {
 		    System.out.println("------------------ NOW PRINT ORDER --------------------");
 		    System.out.println(orderEntity);
 		    
-//		    orderObj = orderEntity;
-
+		    orderObj = orderEntity;
 //		    // Remove no longer needed process variables
 //		    delegateExecution.removeVariables(variables.keySet());
 //
@@ -148,12 +145,18 @@ public class OrderServiceBean {
 	  //check instruction
 	  public void nortifyCustomer(DelegateExecution delegateExecution) {	  
 		 
-		 System.out.println("nortifyCustomer");		 
+		 System.out.println("NotifyCustomer");		 
 	  }
 	  
 	  public JsonObject constructJsonObject(JsonObject jsonObj, DelegateExecution delegateExecution) {
-		  //
+		   //get equipment type index from the hash map
+		   HashMap<Integer, String> skiEquipmenList = orderObj.getEquipmentList();
+		   System.out.println("THE SIZE OF EQUIPMENTLIST IS: " + skiEquipmenList.size());
+		   for(int i=0; i<skiEquipmenList.size(); i++) {
+			   
+		   }
 		  
+		   //construct a JSON object
 		   jsonObj = Json.createObjectBuilder()
 					 .add("messageName", "ExternalOrder")
 					 .add("variables", Json.createObjectBuilder()
@@ -201,53 +204,13 @@ public class OrderServiceBean {
 //			HttpPut put = new HttpPut("http://requestb.in/<your-request-bin>");
 			RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://requestb.in/u6iwxcu6");
 					
-			//construct a json object to fullfill the requested format from SkiOasis
+			//construct a JSON object to fulfill the requested format from SkiOasis
 			JsonObject jsonObj = null;
 			jsonObj = constructJsonObject(jsonObj, delegateExecution);
-			
-//			JsonObject jsonObj = Json.createObjectBuilder()
-//								 .add("messageName", "ExternalOrder")
-//								 .add("variables", Json.createObjectBuilder()
-//										           .add("firstName", Json.createObjectBuilder()
-//										        		             .add("value", (String) delegateExecution.getVariables().get("firstName"))
-//										        		             .add("type", "String")
-//										        		             .add("valueInfo", "{}"))
-//										           .add("lastName", Json.createObjectBuilder()
-//										        		   			.add("value", (String) delegateExecution.getVariables().get("lastName"))
-//										        		   			.add("type", "String")
-//										        		   			.add("valueInfo", "{}"))
-//										           .add("orderDate", Json.createObjectBuilder()
-//										        		   			 .add("value", "NO ORDER DATE")
-//										        		   			 .add("type", "String")
-//										        		   			 .add("valueInfo", "{}"))
-//										           .add("deliveryDate", Json.createObjectBuilder()
-//										        		   				.add("value", "NO DELIVERY DATE")
-//										        		   				.add("type", "String")
-//										        		   				.add("valueInfo", "{}"))
-//										           .add("orderType", Json.createObjectBuilder()
-//										        		   			 .add("value", "frog")
-//										        		   			 .add("type", "String")
-//										        		   			 .add("valueInfo", "{}"))
-//										           .add("isBuying", Json.createObjectBuilder()
-//										        		   			.add("value", "false")
-//										        		   			.add("type", "String")
-//										        		   			.add("valueInfo", "{}"))
-//										           .add("extProcessId", Json.createObjectBuilder()
-//										        		   				.add("value", (String) delegateExecution.getProcessInstanceId())
-//										        		   				.add("type", "String")
-//										        		   				.add("valueInfo", "{}"))
-//										           .add("equipmentList", Json.createArrayBuilder()
-//										        		   				 .add("{}")
-//										        		   				 .add("{}")))
-//								 .build();
-										   
 										 
 			//assign to string entity
 			StringEntity entity = new StringEntity(jsonObj.toString());
-			
-//			requestBuilder.addParameter("ProcessInstanceId", delegateExecution.getProcessInstanceId());
-//			requestBuilder.addParameter("TEST MESSAGE", "TEST FOR API");
-//			requestBuilder.addParameter("firstName", (String) delegateExecution.getVariables().get("firstName"));
+
 			requestBuilder.setHeader("Content-type", "application/json");
 			requestBuilder.setEntity(entity);
 			// execute request
