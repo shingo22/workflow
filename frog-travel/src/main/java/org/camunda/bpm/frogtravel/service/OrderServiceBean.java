@@ -6,6 +6,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
+
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.impl.util.json.JSONObject;
@@ -16,6 +17,7 @@ import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -34,10 +36,10 @@ public class OrderServiceBean {
 	  @PersistenceContext
 	  private EntityManager entityManager;
 	  
-//	  @Inject
-//	  private TaskForm taskForm;
+	  @Inject
+	  private TaskForm taskForm;
 	  
-//	  OrderEntity orderObj;
+	  OrderEntity orderObj;
 	  
 	  public void persistOrder(DelegateExecution delegateExecution) {
 		    // Create new order instance
@@ -61,9 +63,7 @@ public class OrderServiceBean {
 		    orderEntity.setCateringIncluded((Boolean) variables.get("isCateringIncluded"));
 		    orderEntity.setInstructionIncluded((Boolean) variables.get("isInstructionIncluded"));
 		    
-		    
-		    //orderEntity.setEquipmentList((List<String>) variables.get("skiEquipmentType"));
-		    
+		    //
 		    orderEntity.addEquipment((Integer)1, variables.get("checkSki").toString());
 		    orderEntity.addEquipment((Integer)2, variables.get("checkSnowboard").toString());
 		    orderEntity.addEquipment((Integer)3, variables.get("checkVeryPopularSnowboard").toString());
@@ -71,7 +71,7 @@ public class OrderServiceBean {
 		    orderEntity.addEquipment((Integer)5, variables.get("checkStick").toString());
 		    orderEntity.addEquipment((Integer)6, variables.get("checkSkiSuit").toString());
 		    
-		    System.out.println("NOW PRINT EQUIPMENT LIST -----------------------");
+		    System.out.println("------------------ NOW PRINT EQUIPMENT LIST -------------------");
 		    System.out.println(orderEntity.getEquipmentList());
 		    	    
 		    //order.setPaymentInfo((PaymentInfo) variables.get("paymentInfo"));
@@ -81,7 +81,7 @@ public class OrderServiceBean {
 		    entityManager.flush();
 		    
 		    //test output
-		    System.out.println("NOW PRINT ORDER ------------------------");
+		    System.out.println("------------------ NOW PRINT ORDER --------------------");
 		    System.out.println(orderEntity);
 		    
 //		    orderObj = orderEntity;
@@ -98,22 +98,22 @@ public class OrderServiceBean {
 	  
 	  
 	  //check accommodation
-	  public void checkAccommodation(DelegateExecution delegateExecution) {	  
-		 // Get all process variables
-		 
+	  public void checkAccommodation(DelegateExecution delegateExecution) {	 
+		  
 		 String theArriveTime = (String) delegateExecution.getVariables().get("arriveDate"); 
 		 String theReturnTime = (String) delegateExecution.getVariables().get("returnDate");
-		 System.out.println("NOW PRINT THE ARRIVEDATE--------");
+		 System.out.println("---------NOW PRINT THE ARRIVEDATE--------");
 		 System.out.println(theArriveTime);
 		 
 		 if (theArriveTime.equals("10-01-2017")) {
-			 System.out.println("THE DESTINATION IS AVALIABLE FROM " + theArriveTime + " TO " + theReturnTime);
+			 System.out.println("THE DESTINATION IS AVALIABLE");
 			
 			 delegateExecution.setVariable("isApproved", true);
 		 } else {
 			 delegateExecution.setVariable("isApproved", false);		 
 		 }		 
 	  }
+	  
 	  
 	  //check transportation
 	  public void checkTransfer(DelegateExecution delegateExecution) {	  
@@ -151,6 +151,7 @@ public class OrderServiceBean {
 		 System.out.println("nortifyCustomer");		 
 	  }
 	  
+	  
 	  //send message to Ski Oasis
 	  public void sendToSkiOasis(DelegateExecution delegateExecution) throws Exception {
 			// build HTTP request with all variables as parameters
@@ -162,15 +163,40 @@ public class OrderServiceBean {
 			JsonObject jsonObj = Json.createObjectBuilder()
 								 .add("messageName", "ExternalOrder")
 								 .add("variables", Json.createObjectBuilder()
-										 .add("firstName", (String) delegateExecution.getVariables().get("firstName"))
-										   .add("lastName", (String) delegateExecution.getVariables().get("lastName"))
-										   .add("orderDate", "09-01-2017")
-										   .add("delivertDate", (String) delegateExecution.getVariables().get("arriveDate"))
-										   .add("orderType", "frog")
-										   .add("isBuying", "false")
-										   .add("extProcessId", delegateExecution.getProcessInstanceId()))
-						 .build();
-			
+										           .add("firstName", Json.createObjectBuilder()
+										        		             .add("value", (String) delegateExecution.getVariables().get("firstName"))
+										        		             .add("type", "String")
+										        		             .add("valueInfo", "{}"))
+										           .add("lastName", Json.createObjectBuilder()
+										        		   			.add("value", (String) delegateExecution.getVariables().get("lastName"))
+										        		   			.add("type", "String")
+										        		   			.add("valueInfo", "{}"))
+										           .add("orderDate", Json.createObjectBuilder()
+										        		   			 .add("value", "NO ORDER DATE")
+										        		   			 .add("type", "String")
+										        		   			 .add("valueInfo", "{}"))
+										           .add("deliveryDate", Json.createObjectBuilder()
+										        		   				.add("value", "NO DELIVERY DATE")
+										        		   				.add("type", "String")
+										        		   				.add("valueInfo", "{}"))
+										           .add("orderType", Json.createObjectBuilder()
+										        		   			 .add("value", "frog")
+										        		   			 .add("type", "String")
+										        		   			 .add("valueInfo", "{}"))
+										           .add("isBuying", Json.createObjectBuilder()
+										        		   			.add("value", "false")
+										        		   			.add("type", "String")
+										        		   			.add("valueInfo", "{}"))
+										           .add("extProcessId", Json.createObjectBuilder()
+										        		   				.add("value", (String) delegateExecution.getProcessInstanceId())
+										        		   				.add("type", "String")
+										        		   				.add("valueInfo", "{}"))
+										           .add("equipmentList", Json.createArrayBuilder()
+										        		   				 .add("{}")
+										        		   				 .add("{}")))
+								 .build();
+										   
+										 
 			//assign to string entity
 			StringEntity entity = new StringEntity(jsonObj.toString());
 			
@@ -186,8 +212,6 @@ public class OrderServiceBean {
 			HttpResponse response = client.execute(request);
 			// log debug information
 			System.out.println(request.getURI());
-			System.out.println(response.getStatusLine());
-			
-		}
-	
+			System.out.println(response.getStatusLine());		
+		}	
 }
