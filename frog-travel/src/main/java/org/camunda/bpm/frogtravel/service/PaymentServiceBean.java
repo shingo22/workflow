@@ -78,13 +78,14 @@ public class PaymentServiceBean {
 	        
 	    // For a confirmation email
 	    String confirmMail = "Your payment is completed. Thank you so much!!  \r\n\r\n" + mailContent;
+	    confirmMail = confirmMail + "\r\n\r\nFrog Travel";
 	    delegateExecution.setVariable("confirmMail", confirmMail);
 	}
 	
 	public void sendOrderToOasis(DelegateExecution delegateExecution) throws ClientProtocolException, IOException {
 		JsonObject jsonObj = Json.createObjectBuilder()
 						.add("messageName", "FinalOrder")
-						.add("processInstanceId", delegateExecution.getProcessInstanceId().toString())
+						.add("processInstanceId", delegateExecution.getVariables().get("processInstanceId_ski").toString())
 						.build();
 		
         System.out.println("===== HTTP POST Start =====");
@@ -95,9 +96,14 @@ public class PaymentServiceBean {
         StringEntity entity = new StringEntity(jsonObj.toString());
         httpPost.setEntity(entity);
         httpPost.setHeader("Content-type", "application/json");
+        
+        System.out.println(jsonObj.toString());
+        System.out.println(httpPost);
          
-        //CloseableHttpResponse response = client.execute(httpPost);
-        //assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
+        CloseableHttpResponse response = client.execute(httpPost);
+        if (response.getStatusLine().getStatusCode() == 200){
+        	System.out.println("Succeed");
+        }
         client.close();
 
         System.out.println("===== HTTP POST End =====");
@@ -106,7 +112,7 @@ public class PaymentServiceBean {
 	public void sendPaymentToOasis(DelegateExecution delegateExecution) throws ClientProtocolException, IOException {
 		JsonObject jsonObj = Json.createObjectBuilder()
 						.add("messageName", "Payment")
-						.add("processInstanceId", delegateExecution.getProcessInstanceId().toString())
+						.add("processInstanceId", delegateExecution.getVariables().get("processInstanceId_ski").toString())
 						.build();
 		
         System.out.println("===== HTTP POST Start =====");
@@ -117,9 +123,14 @@ public class PaymentServiceBean {
         StringEntity entity = new StringEntity(jsonObj.toString());
         httpPost.setEntity(entity);
         httpPost.setHeader("Content-type", "application/json");
+        
+        System.out.println(jsonObj.toString());
+        System.out.println(httpPost);
          
-        //CloseableHttpResponse response = client.execute(httpPost);
-        //assertThat(response.getStatusLine().getStatusCode(), equalTo(200));
+        CloseableHttpResponse response = client.execute(httpPost);
+        if (response.getStatusLine().getStatusCode() == 200){
+        	System.out.println("Succeed");
+        }
         client.close();
 
         System.out.println("===== HTTP POST End =====");
