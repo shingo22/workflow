@@ -1,9 +1,0 @@
-org\camunda\bpm\frogtravel\persistence\PaymentInfo.class
-org\camunda\bpm\frogtravel\persistence\OrderEntity.class
-org\camunda\bpm\frogtravel\service\OrderServiceBean.class
-org\camunda\bpm\frogtravel\service\PaymentServiceBean.class
-org\camunda\bpm\frogtravel\servlet\SkiOasisServlet.class
-org\camunda\bpm\frogtravel\persistence\DestinationDB.class
-org\camunda\bpm\frogtravel\dmn\DecisionTableApplication.class
-org\camunda\bpm\frogtravel\listener\Initializer.class
-org\camunda\bpm\frogtravel\servlet\CustomerServlet.class

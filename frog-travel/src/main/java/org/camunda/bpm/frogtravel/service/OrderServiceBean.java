@@ -173,7 +173,6 @@ public class OrderServiceBean {
 		  if(destinationInfo.isTransferIncluded()==true) {
 			  System.out.println("Transfer to this plcase is available");
 			  delegateExecution.setVariable("isTransferAvaliable", true);
-			  delegateExecution.setVariable("everythingAvailable", true);
 		  }
 		  else {
 			  delegateExecution.setVariable("isTransferAvaliable", false);
@@ -189,7 +188,6 @@ public class OrderServiceBean {
 			  if(destinationInfo.isCateringIncluded()==true) {
 				  System.out.println("Catering in this plcase is available");
 				  delegateExecution.setVariable("isCateringAvaliable", true);
-				  delegateExecution.setVariable("everythingAvailable", true);
 			  }
 			  else {
 				  delegateExecution.setVariable("isCateringAvaliable", false);
@@ -205,7 +203,6 @@ public class OrderServiceBean {
 			  if(destinationInfo.isInstructionIncluded()==true) {
 				  System.out.println("Ski instruction in this plcase is available");
 				  delegateExecution.setVariable("isInstructionAvaliable", true);
-				  delegateExecution.setVariable("everythingAvailable", true);
 			  }
 			  else {
 				  delegateExecution.setVariable("isInstructionAvaliable", false);
