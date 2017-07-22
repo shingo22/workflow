@@ -46,20 +46,20 @@ public class OrderServiceBean {
 	  
 	  OrderEntity orderObj = null;
 	  
+	  // Get all default values from database
+	  public Collection<DestinationDB> getAll() {
+			return entityManager.createQuery("FROM DestinationDB", DestinationDB.class).getResultList();
+	  }  
+	  
 	  public void persistOrder(DelegateExecution delegateExecution) {
 		    // Create new order instance
 		    OrderEntity orderEntity = new OrderEntity();
-		        
-//		    // Persisting destination record
-//		    DestinationServiceBean destinations = new DestinationServiceBean();
-//		    Collection<DestinationDB> dess = destinations.getAll();
-//		    for(DestinationDB des: dess){
-//		    	entityManager.persist(des);
-//		    	entityManager.flush();
-//		    	System.out.println("NOW PRINT RECORD ------------------");
-//		    	System.out.println(des.getArrivalTime().toString());
-//		    }
-		    
+		       	      
+		    DestinationDB d1= new DestinationDB("2017-09-15", "2017-09-20", true, true, true, true);
+		    entityManager.persist(d1);
+			entityManager.flush();
+			System.out.println("--------- NOW PRINT ALL FROM DATABASE ---------");
+			System.out.println(getAll());		    
 
 		    // Get all process variables
 		    Map<String, Object> variables = delegateExecution.getVariables();
