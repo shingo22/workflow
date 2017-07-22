@@ -55,11 +55,20 @@ public class OrderServiceBean {
 		    // Create new order instance
 		    OrderEntity orderEntity = new OrderEntity();
 		       	      
-		    DestinationDB d1= new DestinationDB("2017-09-15", "2017-09-20", true, true, true, true);
+		    DestinationDB d1= new DestinationDB("SkiPalace", "2017-09-15", "2017-09-20", true, true, true, true);
 		    entityManager.persist(d1);
+		    DestinationDB d2= new DestinationDB("SkiHeaven", "2017-09-15", "2017-09-20", true, true, true, true);
+		    entityManager.persist(d2);
+		    DestinationDB d3= new DestinationDB("SkiHell", "2017-09-15", "2017-09-20", true, true, true, true);
+		    entityManager.persist(d3);	    
 			entityManager.flush();
+			
 			System.out.println("--------- NOW PRINT ALL FROM DATABASE ---------");
-			System.out.println(getAll());		    
+//			System.out.println(getAll());			
+			Collection<DestinationDB> dess = getAll();
+		    for(DestinationDB des: dess) {
+		    	System.out.println("Location is " + des.getLocation() + " Arrival Time is " + des.getArrivalTime() + " Return Time is " + des.getReturnTime()+" ");
+		    }
 
 		    // Get all process variables
 		    Map<String, Object> variables = delegateExecution.getVariables();
@@ -159,27 +168,21 @@ public class OrderServiceBean {
 	  }
 	  
 	  
-		@SuppressWarnings("unchecked")
-		public JsonObject constructJsonObject(JsonObject jsonObj, DelegateExecution delegateExecution) {
+	  @SuppressWarnings("unchecked")
+	  public JsonObject constructJsonObject(JsonObject jsonObj, DelegateExecution delegateExecution) {
 			   //get equipment type index from the hash map
 			   HashMap<Integer, String> skiEquipmenList = orderObj.getEquipmentList();
-//			   ArrayList<JsonValue> testlist = new ArrayList<JsonValue> ();
-			   JsonArrayBuilder testlist = Json.createArrayBuilder();
-			   ArrayList<String> list = new ArrayList<String>();
+			   JsonArrayBuilder equiplist = Json.createArrayBuilder();
 			  	   
 			   System.out.println("THE SIZE OF EQUIPMENTLIST IS: " + skiEquipmenList.size());
 			   for(int i=0; i<skiEquipmenList.size(); i++) {
 				   if(skiEquipmenList.get(i) == "true") {
-					  list.add((String) Integer.toString(i));
-					  testlist.add((String) Integer.toString(i));
-//					  equiplist.add(Integer.toString(i)); 
+					  equiplist.add((String) Integer.toString(i)); 
 				   }
 			   }
-			   JsonArray jsonarraytest = testlist.build();
+			   JsonArray jsonarraytest = equiplist.build();
 			   System.out.println("---------- PRINT TESTLIST --------- " + jsonarraytest);
-//			   JsonArray equiplist = Json.createArrayBuilder().add("equipment", list);
-//			   listObj.put("equipmentList", list);
-//			   equiplist.add("equipmentList", list);
+			   
 			   //construct a JSON object
 			   jsonObj = Json.createObjectBuilder()
 						 .add("messageName", "ExternalOrder")
@@ -213,7 +216,8 @@ public class OrderServiceBean {
 								        		   				.add("type", "String")
 								        		   				.add("valueInfo", "{}"))
 								           .add("equipmentList", jsonarraytest))
-						 .build();  
+						 .build();
+			   
 			   System.out.println(jsonObj);
 			   
 			   return jsonObj;

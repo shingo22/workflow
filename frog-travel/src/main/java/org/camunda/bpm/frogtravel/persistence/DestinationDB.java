@@ -15,6 +15,7 @@ public class DestinationDB implements java.io.Serializable {
 	@GeneratedValue
 	private int destinationId;
 	
+	private String location;
 	private String arrivalTime;
 	private String returnTime;
 	private boolean isTransferIncluded;
@@ -27,7 +28,8 @@ public class DestinationDB implements java.io.Serializable {
 
 	}
 	
-	public DestinationDB(String arrivalTime, String returnTime, boolean isTransferIncluded, boolean isCateringIncluded, boolean isInstructionIncluded, boolean isAccomodationIncluded){
+	public DestinationDB(String location, String arrivalTime, String returnTime, boolean isTransferIncluded, boolean isCateringIncluded, boolean isInstructionIncluded, boolean isAccomodationIncluded){
+		this.location = location;
 		this.arrivalTime = arrivalTime;
 		this.returnTime = returnTime;
 		this.isTransferIncluded = isTransferIncluded;
@@ -60,24 +62,35 @@ public class DestinationDB implements java.io.Serializable {
 			return false;
 		DestinationDB des = (DestinationDB) o;
 		// field comparison
-		return Objects.equals(arrivalTime, des.arrivalTime)
+		return Objects.equals(location, des.location)
+				&& Objects.equals(arrivalTime, des.arrivalTime)
 				&& Objects.equals(returnTime, des.returnTime)
 				&& Objects.equals(isTransferIncluded, des.isTransferIncluded)
 				&& Objects.equals(isAccomodationIncluded, des.isAccomodationIncluded)
 				&& Objects.equals(isCateringIncluded, des.isCateringIncluded)
-				&& Objects.equals(this.isInstructionIncluded, des.isInstructionIncluded);
+				&& Objects.equals(isInstructionIncluded, des.isInstructionIncluded);
 	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(arrivalTime, returnTime, isTransferIncluded, isAccomodationIncluded, isCateringIncluded, isInstructionIncluded);
+		return Objects.hash(location, arrivalTime, returnTime, isTransferIncluded, isAccomodationIncluded, isCateringIncluded, isInstructionIncluded);
 	}
 
 ////////////////////////////////////////
 	
+	
+	
 	public String getArrivalTime() {
 		return arrivalTime;
 	}
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	public void setArrivalTime(String arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
@@ -87,6 +100,15 @@ public class DestinationDB implements java.io.Serializable {
 	public void setReturnTime(String returnTime) {
 		this.returnTime = returnTime;
 	}
+	
+	public boolean isAccomodationIncluded() {
+		return isAccomodationIncluded;
+	}
+
+	public void setAccomodationIncluded(boolean isAccomodationIncluded) {
+		this.isAccomodationIncluded = isAccomodationIncluded;
+	}
+	
 	public boolean isTransferIncluded() {
 		return isTransferIncluded;
 	}
