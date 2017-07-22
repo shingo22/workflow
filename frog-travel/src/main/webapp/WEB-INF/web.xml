@@ -11,5 +11,14 @@
 		<servlet-name>ski-oasis</servlet-name>
 		<url-pattern>/ski-oasis</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>customer</servlet-name>
+		<servlet-class>org.camunda.bpm.frogtravel.servlet.CustomerServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>customer</servlet-name>
+		<url-pattern>/customer</url-pattern>
+	</servlet-mapping>
 
 </web-app>

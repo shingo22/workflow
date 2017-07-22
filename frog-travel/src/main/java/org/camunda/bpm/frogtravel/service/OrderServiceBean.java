@@ -15,12 +15,17 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
-
+import javax.json.JsonValue;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -39,11 +44,55 @@ public class OrderServiceBean {
 	  @Inject
 	  private TaskForm taskForm;  
 	  
-	  OrderEntity orderObj;
+	  OrderEntity orderObj = null;
+	  DestinationDB currentDestination = null;
+	  
+	  // Get all default values from database
+	  public Collection<DestinationDB> getAll() {
+			return entityManager.createQuery("FROM DestinationDB", DestinationDB.class).getResultList();
+	  }
+	  
+	  public Collection<String> getAllDestination() {
+		  Collection<DestinationDB> dess = getAll();
+		  ArrayList<String> allDestination = new ArrayList<String>();
+		  for(DestinationDB des: dess) {
+			  allDestination.add(des.getLocation());
+		  }
+		  
+		  return allDestination;
+	  }
+	  
+	  public DestinationDB getDestinationInfo(String destination) {
+		  Collection<DestinationDB> dess = getAll();
+		  DestinationDB info = null;
+		  for(DestinationDB des: dess) {
+			  if(des.getLocation().equals(destination)){
+				info = des; 
+			  }
+		  }
+		  return info;
+	  }
+	  
+	  public void persistInitialData(){
+		    DestinationDB d1= new DestinationDB("SkiPalace", "2017-11-01", "2017-04-10", true, true, true, true);
+		    entityManager.persist(d1);
+		    DestinationDB d2= new DestinationDB("SkiHeaven", "2017-10-15", "2018-03-31", true, true, true, true);
+		    entityManager.persist(d2);
+		    DestinationDB d3= new DestinationDB("SkiHell", "2017-11-15", "2018-04-20", true, true, true, true);
+		    entityManager.persist(d3);	    
+			entityManager.flush();
+	  }
 	  
 	  public void persistOrder(DelegateExecution delegateExecution) {
 		    // Create new order instance
 		    OrderEntity orderEntity = new OrderEntity();
+		    
+			System.out.println("--------- NOW PRINT ALL FROM DATABASE ---------");
+//			System.out.println(getAll());			
+			Collection<DestinationDB> dess = getAll();
+		    for(DestinationDB des: dess) {
+		    	System.out.println("Location is " + des.getLocation() + " Arrival Time is " + des.getArrivalTime() + " Return Time is " + des.getReturnTime()+" ");
+		    }
 
 		    // Get all process variables
 		    Map<String, Object> variables = delegateExecution.getVariables();
@@ -95,119 +144,56 @@ public class OrderServiceBean {
 	  
 	  
 	  //check accommodation
-	  public void checkAccommodation(DelegateExecution delegateExecution) {	 
+	  public void checkAccommodation(DelegateExecution delegateExecution) {
+
+		  int arriveDate = Integer.parseInt(delegateExecution.getVariables().get("arriveDate").toString().replaceAll("-", ""));
+		  int returnDate = Integer.parseInt(delegateExecution.getVariables().get("returnDate").toString().replaceAll("-", ""));
 		  
-		 String theArriveTime = (String) delegateExecution.getVariables().get("arriveDate"); 
-		 String theReturnTime = (String) delegateExecution.getVariables().get("returnDate");
-		 System.out.println("---------NOW PRINT THE ARRIVEDATE--------");
-		 System.out.println(theArriveTime);
-		 
-		 if (theArriveTime.equals("10-01-2017")) {
-			 System.out.println("THE DESTINATION IS AVALIABLE");
-			
-			 delegateExecution.setVariable("isApproved", true);
-		 } else {
-			 delegateExecution.setVariable("isApproved", false);		 
-		 }		 
-	  }
+		  DestinationDB destinationInfo = getDestinationInfo(delegateExecution.getVariables().get("destination").toString());
+		  
+		  int openDate = Integer.parseInt(destinationInfo.getArrivalTime().replaceAll("-", ""));
+		  int closeDate = Integer.parseInt(destinationInfo.getReturnTime().replaceAll("-", ""));
+		
+		  if(openDate<=arriveDate && returnDate<=closeDate  && arriveDate<=returnDate){
+			  System.out.println("THE DESTINATION IS AVALIABLE");
+			  delegateExecution.setVariable("isApproved", true); 
+		  }
+		  else {
+			  delegateExecution.setVariable("isApproved", false);		 
+		  }
+		  
+	  } 
+		  
 	  
 	  
 	  //check transportation
 	  public void checkTransfer(DelegateExecution delegateExecution) {	  
-		 
-		 System.out.println("Transfer");		 
+		 System.out.println("Transfer");	
 	  }
 	  
 	  //check catering
 	  public void checkCatering(DelegateExecution delegateExecution) {	  
-		 
-		 System.out.println("Catering");		 
-	  }
-	  
-	  //check equipment
-	  public void checkEquipment(DelegateExecution delegateExecution) {	  
-		 
-		 System.out.println("Equipment");		 
+			 System.out.println("Catering");	 
 	  }
 	  
 	  //check instruction
 	  public void checkInstruction(DelegateExecution delegateExecution) {	  
-		 
-		 System.out.println("Instruction");		 
-	  }
-	  
-	  //check instruction
-	  public void sendOrderDetails(DelegateExecution delegateExecution) {	  
-		 
-		 System.out.println("OrderDetails");		 
-	  }
-	  
-	  //check instruction
-	  public void nortifyCustomer(DelegateExecution delegateExecution) {	  
-		 
-		 System.out.println("NotifyCustomer");		 
-	  }
-	  
-	  public JsonObject constructJsonObject(JsonObject jsonObj, DelegateExecution delegateExecution) {
-		   //get equipment type index from the hash map
-		   HashMap<Integer, String> skiEquipmenList = orderObj.getEquipmentList();
-		   System.out.println("THE SIZE OF EQUIPMENTLIST IS: " + skiEquipmenList.size());
-		   for(int i=0; i<skiEquipmenList.size(); i++) {
-			   
-		   }
-		  
-		   //construct a JSON object
-		   jsonObj = Json.createObjectBuilder()
-					 .add("messageName", "ExternalOrder")
-					 .add("variables", Json.createObjectBuilder()
-							           .add("firstName", Json.createObjectBuilder()
-							        		             .add("value", (String) delegateExecution.getVariables().get("firstName"))
-							        		             .add("type", "String")
-							        		             .add("valueInfo", "{}"))
-							           .add("lastName", Json.createObjectBuilder()
-							        		   			.add("value", (String) delegateExecution.getVariables().get("lastName"))
-							        		   			.add("type", "String")
-							        		   			.add("valueInfo", "{}"))
-							           .add("orderDate", Json.createObjectBuilder()
-							        		   			 .add("value", "NO ORDER DATE")
-							        		   			 .add("type", "String")
-							        		   			 .add("valueInfo", "{}"))
-							           .add("deliveryDate", Json.createObjectBuilder()
-							        		   				.add("value", "NO DELIVERY DATE")
-							        		   				.add("type", "String")
-							        		   				.add("valueInfo", "{}"))
-							           .add("orderType", Json.createObjectBuilder()
-							        		   			 .add("value", "frog")
-							        		   			 .add("type", "String")
-							        		   			 .add("valueInfo", "{}"))
-							           .add("isBuying", Json.createObjectBuilder()
-							        		   			.add("value", "false")
-							        		   			.add("type", "String")
-							        		   			.add("valueInfo", "{}"))
-							           .add("extProcessId", Json.createObjectBuilder()
-							        		   				.add("value", (String) delegateExecution.getProcessInstanceId())
-							        		   				.add("type", "String")
-							        		   				.add("valueInfo", "{}"))
-							           .add("equipmentList", Json.createArrayBuilder()
-							        		   				 .add("{}")
-							        		   				 .add("{}")))
-					 .build();  
-		   
-		   return jsonObj;
+			 System.out.println("Instruction");	 
 	  }
 	  
 	  
+	  //check equipment
 	  //send message to Ski Oasis
-	  public void sendToSkiOasis(DelegateExecution delegateExecution) throws Exception {
+	  public void checkEquipment(DelegateExecution delegateExecution) throws Exception {
 			// build HTTP request with all variables as parameters
 			HttpClient client = HttpClients.createDefault();
 //			HttpPut put = new HttpPut("http://requestb.in/<your-request-bin>");
-			RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://requestb.in/u6iwxcu6");
+			RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://requestb.in/wkyz21wk");
 					
 			//construct a JSON object to fulfill the requested format from SkiOasis
 			JsonObject jsonObj = null;
 			jsonObj = constructJsonObject(jsonObj, delegateExecution);
-										 
+							 
 			//assign to string entity
 			StringEntity entity = new StringEntity(jsonObj.toString());
 
@@ -222,4 +208,61 @@ public class OrderServiceBean {
 			System.out.println(request.getURI());
 			System.out.println(response.getStatusLine());		
 		}	
+	  
+	  
+	  @SuppressWarnings("unchecked")
+	  public JsonObject constructJsonObject(JsonObject jsonObj, DelegateExecution delegateExecution) {
+			   //get equipment type index from the hash map
+			   HashMap<Integer, String> skiEquipmenList = orderObj.getEquipmentList();
+			   JsonArrayBuilder equiplist = Json.createArrayBuilder();
+			  	   
+			   System.out.println("THE SIZE OF EQUIPMENTLIST IS: " + skiEquipmenList.size());
+			   for(int i=0; i<skiEquipmenList.size(); i++) {
+				   if(skiEquipmenList.get(i) == "true") {
+					  equiplist.add((String) Integer.toString(i)); 
+				   }
+			   }
+			   JsonArray jsonarraytest = equiplist.build();
+			   System.out.println("---------- PRINT TESTLIST --------- " + jsonarraytest);
+			   
+			   //construct a JSON object
+			   jsonObj = Json.createObjectBuilder()
+						 .add("messageName", "ExternalOrder")
+						 .add("variables", Json.createObjectBuilder()
+								           .add("firstName", Json.createObjectBuilder()
+								        		             .add("value", (String) delegateExecution.getVariables().get("firstName"))
+								        		             .add("type", "String")
+								        		             .add("valueInfo", "{}"))
+								           .add("lastName", Json.createObjectBuilder()
+								        		   			.add("value", (String) delegateExecution.getVariables().get("lastName"))
+								        		   			.add("type", "String")
+								        		   			.add("valueInfo", "{}"))
+								           .add("orderDate", Json.createObjectBuilder()
+								        		   			 .add("value", "NO ORDER DATE")
+								        		   			 .add("type", "String")
+								        		   			 .add("valueInfo", "{}"))
+								           .add("deliveryDate", Json.createObjectBuilder()
+								        		   				.add("value", "NO DELIVERY DATE")
+								        		   				.add("type", "String")
+								        		   				.add("valueInfo", "{}"))
+								           .add("orderType", Json.createObjectBuilder()
+								        		   			 .add("value", "frog")
+								        		   			 .add("type", "String")
+								        		   			 .add("valueInfo", "{}"))
+								           .add("isBuying", Json.createObjectBuilder()
+								        		   			.add("value", "false")
+								        		   			.add("type", "String")
+								        		   			.add("valueInfo", "{}"))
+								           .add("extProcessId", Json.createObjectBuilder()
+								        		   				.add("value", (String) delegateExecution.getProcessInstanceId())
+								        		   				.add("type", "String")
+								        		   				.add("valueInfo", "{}"))
+								           .add("equipmentList", jsonarraytest))
+						 .build();
+			   
+			   System.out.println(jsonObj);
+			   
+			   return jsonObj;
+		  }
+	  
 }

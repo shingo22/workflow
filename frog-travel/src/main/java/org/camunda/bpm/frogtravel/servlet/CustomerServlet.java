@@ -20,9 +20,22 @@ import org.camunda.bpm.engine.impl.util.json.JSONException;
 import org.camunda.bpm.engine.impl.util.json.JSONObject;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 
-public class SkiOasisServlet extends HttpServlet{
+public class CustomerServlet extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		response.getWriter().append("Served attttttttttt: ").append(request.getContextPath());
+		String processId = request.getParameter("id");
+		
+		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+		RuntimeService runtimeService = processEngine.getRuntimeService();
+		
+		try {
+			runtimeService.createMessageCorrelation("ReceivePayment")
+			.processInstanceId(processId).correlateWithResult();
+			
+			response.getWriter().append("Your order is confirmed.");
+		}
+		catch (Exception e){ response.getWriter().append("Error Occurred."); }
+		
+		
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
@@ -41,18 +54,12 @@ public class SkiOasisServlet extends HttpServlet{
 		try {
 			JSONObject jsonObject = new JSONObject(jb.toString());
 			
-			// the case when equipment is not available
-			if (jsonObject.get("messageName").toString().equals("SkiOasisAvailability")){
-				if(jsonObject.get("isAvailable").equals("false")){
-					runtimeService.setVariable(jsonObject.get("processIdInstance").toString(), "everythingAvailable", false);
-				}
-			}
-			
 			runtimeService.createMessageCorrelation(jsonObject.get("messageName").toString())
 			.processInstanceId(jsonObject.get("processIdInstance").toString()).correlateWithResult();
 			
 			
 		} catch (JSONException e) {
+			System.out.println("test3");
 		    // crash and burn
 		    throw new IOException("Error parsing JSON request string");
 		}

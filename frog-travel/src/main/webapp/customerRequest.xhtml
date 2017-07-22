@@ -12,16 +12,17 @@
     <f:event type="preRenderView" listener="#{camundaTaskForm.startProcessInstanceByKeyForm()}" />
   </f:metadata>
   
-  <h:head>
-    <title>Create Order</title>  
+  <h:head >
+    <title>Welcome to Frog Travel!</title>  
   </h:head>
   
-  <img src="hero-quvol.jpg" alt="ice" height="62" width="60" style="width: 1096px; height: 208px; "/><br/>
   <h:body>
-    <h1>Create Order</h1>
-    <h:form id="submitForm">
+    <br/>
+    <img src="hero-quvol.jpg" alt="ice" height="62" width="60" style="width:1096px; height:208px;" align="middle"/>
+    <h1 style="text-align:center;">Create Order</h1>
+    <h:form id="submitForm" style="text-align: center;">
     
-		<h:panelGrid columns="2">
+		<h:panelGrid columns="2"  style="width: 350px;" align="middle">
 		
 			<label for="firstName">First Name</label>
 			<h:inputText id="firstName" value="#{processVariables['firstName']}" required="true"/>
@@ -33,11 +34,11 @@
 		    <h:inputText id="birthDate" value="#{processVariables['birthDate']}"/>
 		    
 		    <label for="email">E-mail</label>
-		    <h:inputText id="email" value="#{processVariables['email']}"/>  
+		    <h:inputText id="email" value="#{processVariables['email']}" required="true" />  
 		
 		</h:panelGrid>   
 		
-		<h:panelGrid columns="2">
+		<h:panelGrid columns="2" style="width: 350px; text-align: center" >
 		
 			<label for="arriveDate">Arrive Date</label>
 			<h:inputText id="arriveDate" value="#{processVariables['arriveDate']}" required="true" />
@@ -46,12 +47,13 @@
 			<h:inputText id="returnDate" value="#{processVariables['returnDate']}" required="true" />
 			
 			<label for="destination">Destination</label>
-		    <h:inputText id="destination" value="#{processVariables['destination']}" />  
-		
+		    <h:selectOneMenu id="destination" value="#{processVariables['destination']}" required="true">
+   				<f:selectItems value="#{orderServiceBean.getAllDestination()}" />
+			</h:selectOneMenu>
 		</h:panelGrid>
 			
 
-		<h:panelGrid columns="2">
+		<h:panelGrid columns="2" style="width: 350px; text-align: center">
 		
             <label for="isTransferIncluded">Transportation</label>
             <h:selectBooleanCheckbox value="#{processVariables['isTransferIncluded']}"/>
@@ -64,12 +66,11 @@
 
             <label for="isEquipIncluded">Ski Equipments (Provided by SkiOasis)</label>
             <h:selectBooleanCheckbox value="#{processVariables['isEquipIncluded']}"/>
+            
        
 		</h:panelGrid>
-		
-		
-		<h3>Select Ski Equipments</h3>
-	    <h:panelGrid columns="2">
+		<h3 style="text-align:center;">Select Ski Equipments</h3>
+	    <h:panelGrid columns="2" style="width: 350px; text-align: center">
 		
             <label for="checkSki">Ski</label>
             <h:selectBooleanCheckbox value="#{processVariables['checkSki']}"/>
@@ -90,15 +91,13 @@
             <h:selectBooleanCheckbox value="#{processVariables['checkSkiSuit']}"/>  
 		    		    	    
 	    </h:panelGrid>
-		
-		
+	   
 		 <!-- The button starts a new process instance. This ends the conversation and redirects us to the tasklist.
-
            NOTE: Syntax is different when working on user task forms, see file "approveLoanRequest.xhtml".
       -->
 		<h:commandButton id="submit_button" value="Continue" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
 		<h:commandButton id="cancel_button" value="Cancel" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
-		<h:messages style="color:red;margin:8px;" />
+		
 	</h:form>
   </h:body>  
 </f:view>
