@@ -163,22 +163,48 @@ public class OrderServiceBean {
 		  }
 		  
 	  } 
-		  
-	  
+		  	  
 	  
 	  //check transportation
 	  public void checkTransfer(DelegateExecution delegateExecution) {	  
-		 System.out.println("Transfer");	
+		  System.out.println("Transfer");	
+		 
+		  DestinationDB destinationInfo = getDestinationInfo(delegateExecution.getVariables().get("destination").toString());
+		  if(destinationInfo.isTransferIncluded()==true) {
+			  System.out.println("Transfer to this plcase is available");
+			  delegateExecution.setVariable("isTransferAvaliable", true);
+		  }
+		  else {
+			  delegateExecution.setVariable("isTransferAvaliable", false);
+		  }			 
 	  }
 	  
 	  //check catering
 	  public void checkCatering(DelegateExecution delegateExecution) {	  
-			 System.out.println("Catering");	 
+			 System.out.println("Catering");
+			 
+			  DestinationDB destinationInfo = getDestinationInfo(delegateExecution.getVariables().get("destination").toString());
+			  if(destinationInfo.isCateringIncluded()==true) {
+				  System.out.println("Catering in this plcase is available");
+				  delegateExecution.setVariable("isCateringAvaliable", true);
+			  }
+			  else {
+				  delegateExecution.setVariable("isCateringAvaliable", false);
+			  }			 
 	  }
 	  
 	  //check instruction
 	  public void checkInstruction(DelegateExecution delegateExecution) {	  
-			 System.out.println("Instruction");	 
+			 System.out.println("Instruction");	
+			 
+			  DestinationDB destinationInfo = getDestinationInfo(delegateExecution.getVariables().get("destination").toString());
+			  if(destinationInfo.isInstructionIncluded()==true) {
+				  System.out.println("Ski instruction in this plcase is available");
+				  delegateExecution.setVariable("isInstructionAvaliable", true);
+			  }
+			  else {
+				  delegateExecution.setVariable("isInstructionAvaliable", false);
+			  }			 
 	  }
 	  
 	  
