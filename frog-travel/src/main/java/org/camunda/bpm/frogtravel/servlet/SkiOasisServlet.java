@@ -22,7 +22,7 @@ import org.camunda.bpm.engine.runtime.ProcessInstance;
 
 public class SkiOasisServlet extends HttpServlet{
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		response.getWriter().append("Served attttttttttt: ").append(request.getContextPath());
+		response.getWriter().append("Frog Travel");
 	}
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
@@ -44,12 +44,15 @@ public class SkiOasisServlet extends HttpServlet{
 			// the case when equipment is not available
 			if (jsonObject.get("messageName").toString().equals("SkiOasisAvailability")){
 				if(jsonObject.get("isAvailable").equals("false")){
-					runtimeService.setVariable(jsonObject.get("processIdInstance").toString(), "everythingAvailable", false);
+					runtimeService.setVariable(jsonObject.get("processInstanceId").toString(), "everythingAvailable", false);
 				}
+				
+				runtimeService.setVariable(jsonObject.get("processInstanceId").toString(), "processInstanceId_ski", jsonObject.get("processInstanceId_ski").toString());
+				
 			}
 			
 			runtimeService.createMessageCorrelation(jsonObject.get("messageName").toString())
-			.processInstanceId(jsonObject.get("processIdInstance").toString()).correlateWithResult();
+			.processInstanceId(jsonObject.get("processInstanceId").toString()).correlateWithResult();
 			
 			
 		} catch (JSONException e) {

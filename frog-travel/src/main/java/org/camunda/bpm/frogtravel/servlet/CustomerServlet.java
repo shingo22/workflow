@@ -55,7 +55,7 @@ public class CustomerServlet extends HttpServlet{
 			JSONObject jsonObject = new JSONObject(jb.toString());
 			
 			runtimeService.createMessageCorrelation(jsonObject.get("messageName").toString())
-			.processInstanceId(jsonObject.get("processIdInstance").toString()).correlateWithResult();
+			.processInstanceId(jsonObject.get("processInstanceId").toString()).correlateWithResult();
 			
 			
 		} catch (JSONException e) {
