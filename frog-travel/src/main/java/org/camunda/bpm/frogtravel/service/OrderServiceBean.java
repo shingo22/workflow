@@ -45,6 +45,7 @@ public class OrderServiceBean {
 	  private TaskForm taskForm;  
 	  
 	  OrderEntity orderObj = null;
+	  DestinationDB currentDestination = null;
 	  
 	  // Get all default values from database
 	  public Collection<DestinationDB> getAll() {
@@ -121,24 +122,47 @@ public class OrderServiceBean {
 	  
 	  //check accommodation
 	  public void checkAccommodation(DelegateExecution delegateExecution) {	 
+//		 String theLocation = (String) delegateExecution.getVariables().get("arriveDate");
+//		 String theArriveTime = (String) delegateExecution.getVariables().get("arriveDate"); 
+//		 String theReturnTime = (String) delegateExecution.getVariables().get("returnDate");
+//		 System.out.println("---------NOW PRINT THE ARRIVEDATE--------");
+//		 System.out.println(theArriveTime);
+//		 
+//		 if (theArriveTime.equals("10-01-2017")) {
+//			 System.out.println("THE DESTINATION IS AVALIABLE");
+//			
+//			 delegateExecution.setVariable("isApproved", true);
+//		 } else {
+//			 delegateExecution.setVariable("isApproved", false);		 
+//		 }
 		  
-		 String theArriveTime = (String) delegateExecution.getVariables().get("arriveDate"); 
-		 String theReturnTime = (String) delegateExecution.getVariables().get("returnDate");
-		 System.out.println("---------NOW PRINT THE ARRIVEDATE--------");
-		 System.out.println(theArriveTime);
-		 
-		 if (theArriveTime.equals("10-01-2017")) {
-			 System.out.println("THE DESTINATION IS AVALIABLE");
-			
-			 delegateExecution.setVariable("isApproved", true);
-		 } else {
-			 delegateExecution.setVariable("isApproved", false);		 
-		 }		 
-	  }
+//		  String location =(String) delegateExecution.getVariables().get("location");
+//		  DestinationDB destination = (DestinationDB) delegateExecution.getVariables().get("destination");
+		  DestinationDB destination = new DestinationDB();
+		  destination.setLocation((String) delegateExecution.getVariables().get("destination"));
+		  destination.setArrivalTime((String) delegateExecution.getVariables().get("arriveDate"));
+		  destination.setReturnTime((String) delegateExecution.getVariables().get("returnDate"));
+//		  destination.set((String) delegateExecution.getVariables().get("arriveDate"));
+		  
+		  Collection<DestinationDB> availableDestinations = getAll();
+		  if(availableDestinations.contains(destination)){
+			  System.out.println("THE DESTINATION IS AVALIABLE");
+			  delegateExecution.setVariable("isApproved", true);
+			  
+			  currentDestination = destination;
+			  
+		  }
+		  else {
+			  delegateExecution.setVariable("isApproved", false);		 
+		  }
+		  
+	  } 
+		  
 	  
 	  
 	  //check transportation
-	  public void checkTransfer(DelegateExecution delegateExecution) {	  
+	  public void checkTransfer(DelegateExecution delegateExecution) {
+//		 currentDestination.setl
 		 
 		 System.out.println("Transfer");		 
 	  }

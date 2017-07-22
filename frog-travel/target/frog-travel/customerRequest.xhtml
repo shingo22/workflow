@@ -22,7 +22,7 @@
     <h1 style="text-align:center;">Create Order</h1>
     <h:form id="submitForm" style="text-align: center;">
     
-		<h:panelGrid columns="2"  style="width: 350px; ">
+		<h:panelGrid columns="2"  style="width: 350px;" align="middle">
 		
 			<label for="firstName">First Name</label>
 			<h:inputText id="firstName" value="#{processVariables['firstName']}" required="true"/>
@@ -34,11 +34,11 @@
 		    <h:inputText id="birthDate" value="#{processVariables['birthDate']}"/>
 		    
 		    <label for="email">E-mail</label>
-		    <h:inputText id="email" value="#{processVariables['email']}"/>  
+		    <h:inputText id="email" value="#{processVariables['email']}" required="true" />  
 		
 		</h:panelGrid>   
 		
-		<h:panelGrid columns="2" style="width: 350px" >
+		<h:panelGrid columns="2" style="width: 350px; text-align: center" >
 		
 			<label for="arriveDate">Arrive Date</label>
 			<h:inputText id="arriveDate" value="#{processVariables['arriveDate']}" required="true" />
@@ -47,12 +47,12 @@
 			<h:inputText id="returnDate" value="#{processVariables['returnDate']}" required="true" />
 			
 			<label for="destination">Destination</label>
-		    <h:inputText id="destination" value="#{processVariables['destination']}" />  
+		    <h:inputText id="destination" value="#{processVariables['destination']}" required="true" />  
 		
 		</h:panelGrid>
 			
 
-		<h:panelGrid columns="2" style="width: 350px">
+		<h:panelGrid columns="2" style="width: 350px; text-align: center">
 		
             <label for="isTransferIncluded">Transportation</label>
             <h:selectBooleanCheckbox value="#{processVariables['isTransferIncluded']}"/>
@@ -69,7 +69,7 @@
        
 		</h:panelGrid>
 		<h3 style="text-align:center;">Select Ski Equipments</h3>
-	    <h:panelGrid columns="2" style="width: 350px">
+	    <h:panelGrid columns="2" style="width: 350px; text-align: center">
 		
             <label for="checkSki">Ski</label>
             <h:selectBooleanCheckbox value="#{processVariables['checkSki']}"/>
@@ -90,8 +90,7 @@
             <h:selectBooleanCheckbox value="#{processVariables['checkSkiSuit']}"/>  
 		    		    	    
 	    </h:panelGrid>
-	
-      
+	   
 		 <!-- The button starts a new process instance. This ends the conversation and redirects us to the tasklist.
 
            NOTE: Syntax is different when working on user task forms, see file "approveLoanRequest.xhtml".
