@@ -1,0 +1,298 @@
+@font-face {
+    font-family: 'opensans-regular';
+    src: url('../fonts/opensans-regular.eot');
+    src: url('../fonts/opensans-regular.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/opensans-regular.woff') format('woff'),
+         url('../fonts/opensans-regular.ttf') format('truetype'),
+         url('../fonts/opensans-regular.svg#opensans-regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'honeyscript-semibold';
+    src: url('../fonts/honeyscript-semibold.eot');
+    src: url('../fonts/honeyscript-semibold.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/honeyscript-semibold.woff') format('woff'),
+         url('../fonts/honeyscript-semibold.ttf') format('truetype'),
+         url('../fonts/honeyscript-semibold.svg#honeyscript-semibold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    background: #fff;
+}
+
+.wrapper{
+    width: 1100px;
+    margin: 0 auto;
+    position: relative;
+}
+
+h1, h2, h3, h4, h5 ,h6{
+    color: #626262;
+    font-family: "opensans-regular", arial;
+    letter-spacing: 1px;
+}
+
+h1              { font-size: 2em; margin: .67em 0 }
+h2              { font-size: 1.5em; margin: .75em 0 }
+h3              { font-size: 1.17em; margin: .83em 0 }
+h5              { font-size: .83em; margin: 1.5em 0 }
+h6              { font-size: .75em; margin: 1.67em 0 }
+h1, h2, h3, h4,
+h5, h6          { font-weight: bolder }
+
+header{
+    width: 100%;
+    height: 0px;
+    display: block;
+    overflow: hidden;
+}
+
+.billboard{
+    width: 100%;
+    height: 300px;
+    background: url('../img/hero.jpg') no-repeat;
+    background-position: cover;
+    -webkit-background-position: cover;
+    -moz-background-position: cover;
+    -o-background-position: cover;
+    overflow: hidden;
+    position: relative;
+    z-index: 5555;
+}
+
+.billboard .caption h2{
+    color: #525252;
+    font-family: "honeyscript-semibold", arial;
+    font-size: 80px;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.column1{
+	width: 75%;
+	text-align: right;
+}
+
+.column2{
+	width: 25%;
+	text-align: left;
+}
+.column3{
+	width: 25%;
+	text-align: right;
+}
+.column4{
+	width: 25%;
+	text-align: left;
+}
+
+.centered {
+	text-align: center;
+	margin-left: 50%;
+}
+
+.about{
+    width: 100%;
+    padding: 0px 0 20px 0;
+    background: #fafafa;
+    text-align: center;
+}
+
+/*index page*/
+.about .about_txt{
+    width: 70%;
+    color: #797979;
+    font-family: "opensans-regular", arial;
+    font-size: 16px;
+    margin: 0px auto;
+	padding: 20px 0 20px 0;
+    line-height: 30px;
+}
+
+.button {
+    background-color: #008CBA; 
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+/*index2 page*/
+.index2_txt{
+    width: 70%;
+    color: #797979;
+    font-family: "opensans-regular", arial;
+    font-size: 16px;
+    margin: 0px auto;
+	padding: 20px 0 0 0;
+    line-height: 30px;
+}
+
+select {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
+input {
+    width: 100%;
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+}
+
+
+#dateoftrip{
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+	width: 60%;
+}
+
+#numberofdays{
+    padding: 16px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f1f1f1;
+	width: 60%;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+}
+
+table {
+    width: 60%;
+}
+
+table.center {
+	margin-left:auto; 
+    margin-right:auto;	
+}
+
+.form_style {
+    color: #797979;
+    font-family: "opensans-regular", arial;
+    font-size: 16px;
+    line-height: 30px;
+}
+
+/*index3 page*/
+.index3_txt{
+    width: 70%;
+    color: #797979;
+    font-family: "opensans-regular", arial;
+    font-size: 16px;
+    margin: 0px auto;
+	padding: 20px 0 20px 0;
+    line-height: 30px;
+}
+/*index4 page*/
+table#t01 {
+    width: 40%;    
+	margin-left:auto; 
+    margin-right:auto;
+	
+}
+/*index5 page*/
+
+/*index6 page*/
+
+/*index7 page*/
+.creditCardForm {
+    max-width: 700px;
+    background-color: #fff;
+    margin: 0px auto;
+    overflow: hidden;
+    padding: 25px;
+    color: #4c4e56;
+}
+.creditCardForm label {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.creditCardForm .heading h1 {
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    color: #4c4e56;
+}
+.creditCardForm .payment {
+    float: left;
+    font-size: 18px;
+    padding: 10px 25px;
+    margin-top: 0px;
+    position: relative;
+}
+.creditCardForm .payment .form-group {
+    float: left;
+    margin-bottom: 15px;
+}
+.creditCardForm .payment .form-control {
+    line-height: 40px;
+    height: auto;
+    padding: 0 16px;
+}
+.creditCardForm .owner {
+    width: 63%;
+    margin-right: 10px;
+}
+.creditCardForm .CVV {
+    width: 35%;
+}
+.creditCardForm #card-number-field {
+    width: 100%;
+}
+.creditCardForm #expiration-date {
+    width: 49%;
+}
+.creditCardForm #credit_cards {
+    width: 50%;
+    margin-top: 25px;
+    text-align: right;
+}
+.creditCardForm #pay-now {
+    width: 100%;
+    margin-top: 25px;
+}
+.creditCardForm .payment .btn {
+    width: 100%;
+    margin-top: 3px;
+    font-size: 24px;
+    background-color: #2ec4a5;
+    color: white;
+}
+.creditCardForm .payment select {
+    padding: 10px;
+    margin-right: 15px;
+}
+.transparent {
+    opacity: 0.2;
+}
+
+/*index8 page*/
+.index8_txt{
+    width: 70%;
+    color: #bc4242;
+	font-weight: bold;
+    font-family: "opensans-regular", arial;
+    font-size: 16px;
+    margin: 0px auto;
+	padding: 20px 0 20px 0;
+    line-height: 30px;
+}
+
+
