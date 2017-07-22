@@ -140,7 +140,15 @@ public class OrderServiceBean {
 		    
 		    // Set initial value for availability of everything
 		    delegateExecution.setVariable("everythingAvailable", true);
-	  }
+		    
+		    // Set initial value to true if customer chose equipment service
+		    if(orderEntity.isEquipIncluded() == true) {
+		    	delegateExecution.setVariable("isEquipmentIncluded", true);
+		    	System.out.println("Customer needs ski equipment service");
+		    } else {
+		    	delegateExecution.setVariable("isEquipmentIncluded", false);
+		    }
+	  }	
 	  
 	  
 	  //check accommodation
@@ -170,7 +178,7 @@ public class OrderServiceBean {
 		  System.out.println("Transfer");	
 		 
 		  DestinationDB destinationInfo = getDestinationInfo(delegateExecution.getVariables().get("destination").toString());
-		  if(destinationInfo.isTransferIncluded()==true) {
+		  if(destinationInfo.isTransferIncluded() == true) {
 			  System.out.println("Transfer to this plcase is available");
 			  delegateExecution.setVariable("isTransferAvaliable", true);
 		  }
@@ -185,7 +193,7 @@ public class OrderServiceBean {
 			 System.out.println("Catering");
 			 
 			  DestinationDB destinationInfo = getDestinationInfo(delegateExecution.getVariables().get("destination").toString());
-			  if(destinationInfo.isCateringIncluded()==true) {
+			  if(destinationInfo.isCateringIncluded() == true) {
 				  System.out.println("Catering in this plcase is available");
 				  delegateExecution.setVariable("isCateringAvaliable", true);
 			  }
@@ -200,7 +208,7 @@ public class OrderServiceBean {
 			 System.out.println("Instruction");	
 			 
 			  DestinationDB destinationInfo = getDestinationInfo(delegateExecution.getVariables().get("destination").toString());
-			  if(destinationInfo.isInstructionIncluded()==true) {
+			  if(destinationInfo.isInstructionIncluded() == true) {
 				  System.out.println("Ski instruction in this plcase is available");
 				  delegateExecution.setVariable("isInstructionAvaliable", true);
 			  }

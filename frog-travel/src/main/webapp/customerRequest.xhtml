@@ -13,14 +13,17 @@
   </f:metadata>
   
   <h:head >
-    <title>Welcome to Frog Travel!</title>  
+    <title>Welcome to Frog Travel!</title> 
+    
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css"> 
   </h:head>
   
   <h:body>
     <br/>
     <img src="hero-quvol.jpg" alt="ice" height="62" width="60" style="width:1096px; height:208px;" align="middle"/>
     <h1 style="text-align:center;">Create Order</h1>
-    <h:form id="submitForm" style="text-align: center;">
+    <h:form id="submitForm" style="text-align: center;" action="/action_page.php">
     
 		<h:panelGrid columns="2"  style="width: 350px;" align="middle">
 		
@@ -95,9 +98,11 @@
 		 <!-- The button starts a new process instance. This ends the conversation and redirects us to the tasklist.
            NOTE: Syntax is different when working on user task forms, see file "approveLoanRequest.xhtml".
       -->
+       
+        
 		<h:commandButton id="submit_button" value="Continue" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
 		<h:commandButton id="cancel_button" value="Cancel" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
-		
+		</form></div>
 	</h:form>
   </h:body>  
 </f:view>
