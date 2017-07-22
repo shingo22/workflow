@@ -107,18 +107,12 @@
         <signavio:signavioMetaData metaKey="bordercolor" metaValue="#000000" />
       </extensionElements>
     </sequenceFlow>
-    <sequenceFlow id="SequenceFlow_01bop6j" sourceRef="sid-3EB91CCD-BD6C-451C-B924-BC1EF122318C" targetRef="ExclusiveGateway_1deyg0g">
-      <conditionExpression xsi:type="tFormalExpression">${isTransferAvaliable==true}</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="SequenceFlow_1921yso" sourceRef="sid-D7B3AB82-C619-4C2F-BC15-4B001FB02634" targetRef="ExclusiveGateway_1deyg0g">
-      <conditionExpression xsi:type="tFormalExpression">${isCateringAvaliable==true}</conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="SequenceFlow_1gyj24k" sourceRef="Task_1fraf7l" targetRef="ExclusiveGateway_1deyg0g">
-      <conditionExpression xsi:type="tFormalExpression">${isInstructionAvaliable==true}</conditionExpression>
-    </sequenceFlow>
+    <sequenceFlow id="SequenceFlow_01bop6j" sourceRef="sid-3EB91CCD-BD6C-451C-B924-BC1EF122318C" targetRef="ExclusiveGateway_1deyg0g" />
+    <sequenceFlow id="SequenceFlow_1921yso" sourceRef="sid-D7B3AB82-C619-4C2F-BC15-4B001FB02634" targetRef="ExclusiveGateway_1deyg0g" />
+    <sequenceFlow id="SequenceFlow_1gyj24k" sourceRef="Task_1fraf7l" targetRef="ExclusiveGateway_1deyg0g" />
     <sequenceFlow id="SequenceFlow_15ur5sc" sourceRef="Task_1ks15bs" targetRef="ExclusiveGateway_1deyg0g" />
     <sequenceFlow id="SequenceFlow_1bookus" name="Yes" sourceRef="sid-0F568B88-47E3-4FAD-BDFE-C4910D3199DC" targetRef="Task_1kdxitd">
-      <conditionExpression xsi:type="tFormalExpression">${isApproved==true}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${isAccommodationAvailable==true}</conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="SequenceFlow_1smo9ev" sourceRef="Task_1kdxitd" targetRef="ExclusiveGateway_0jbjzdq" />
     <sequenceFlow id="SequenceFlow_000tnwc" sourceRef="ExclusiveGateway_0jbjzdq" targetRef="sid-3EB91CCD-BD6C-451C-B924-BC1EF122318C">
@@ -240,7 +234,7 @@
       <outgoing>sid-E398E82E-AB64-4297-96A6-A49283F3F6F5</outgoing>
     </exclusiveGateway>
     <sequenceFlow id="SequenceFlow_033qlcq" name="No" sourceRef="sid-0F568B88-47E3-4FAD-BDFE-C4910D3199DC" targetRef="Task_0pbkez4">
-      <conditionExpression xsi:type="tFormalExpression">${isApproved==false}</conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression">${isAccommodationAvailable==false}</conditionExpression>
     </sequenceFlow>
     <sendTask id="Task_0pbkez4" name="Send email to customer">
       <extensionElements>
@@ -762,10 +756,12 @@
         <omgdc:Bounds x="1664" y="599" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_03k0ze8_di" bpmnElement="MessageFlow_03k0ze8">
-        <omgdi:waypoint xsi:type="omgdc:Point" x="1505" y="679" />
-        <omgdi:waypoint xsi:type="omgdc:Point" x="1505" y="1116" />
+        <omgdi:waypoint xsi:type="omgdc:Point" x="1466" y="679" />
+        <omgdi:waypoint xsi:type="omgdc:Point" x="1433" y="712" />
+        <omgdi:waypoint xsi:type="omgdc:Point" x="1433" y="1101" />
+        <omgdi:waypoint xsi:type="omgdc:Point" x="1457" y="1116" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="1470" y="860" width="24" height="13" />
+          <omgdc:Bounds x="1398" y="872.4050343249428" width="24" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_0zuh7uh_di" bpmnElement="MessageFlow_0zuh7uh">

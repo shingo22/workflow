@@ -156,10 +156,10 @@ public class OrderServiceBean {
 		
 		  if(openDate<=arriveDate && returnDate<=closeDate  && arriveDate<=returnDate){
 			  System.out.println("THE DESTINATION IS AVALIABLE");
-			  delegateExecution.setVariable("isApproved", true); 
+			  delegateExecution.setVariable("isAccommodationAvailable", true); 
 		  }
 		  else {
-			  delegateExecution.setVariable("isApproved", false);		 
+			  delegateExecution.setVariable("isAccommodationAvailable", false);		 
 		  }
 		  
 	  } 
@@ -173,9 +173,11 @@ public class OrderServiceBean {
 		  if(destinationInfo.isTransferIncluded()==true) {
 			  System.out.println("Transfer to this plcase is available");
 			  delegateExecution.setVariable("isTransferAvaliable", true);
+			  delegateExecution.setVariable("everythingAvailable", true);
 		  }
 		  else {
 			  delegateExecution.setVariable("isTransferAvaliable", false);
+			  delegateExecution.setVariable("everythingAvailable", false);
 		  }			 
 	  }
 	  
@@ -187,9 +189,11 @@ public class OrderServiceBean {
 			  if(destinationInfo.isCateringIncluded()==true) {
 				  System.out.println("Catering in this plcase is available");
 				  delegateExecution.setVariable("isCateringAvaliable", true);
+				  delegateExecution.setVariable("everythingAvailable", true);
 			  }
 			  else {
 				  delegateExecution.setVariable("isCateringAvaliable", false);
+				  delegateExecution.setVariable("everythingAvailable", false);
 			  }			 
 	  }
 	  
@@ -201,9 +205,11 @@ public class OrderServiceBean {
 			  if(destinationInfo.isInstructionIncluded()==true) {
 				  System.out.println("Ski instruction in this plcase is available");
 				  delegateExecution.setVariable("isInstructionAvaliable", true);
+				  delegateExecution.setVariable("everythingAvailable", true);
 			  }
 			  else {
 				  delegateExecution.setVariable("isInstructionAvaliable", false);
+				  delegateExecution.setVariable("everythingAvailable", false);
 			  }			 
 	  }
 	  
