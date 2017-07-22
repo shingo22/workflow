@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonBuilderFactory;
 import javax.json.JsonObject;
 import javax.json.JsonValue;
@@ -158,68 +159,65 @@ public class OrderServiceBean {
 	  }
 	  
 	  
-	@SuppressWarnings("unchecked")
-	public JsonObject constructJsonObject(JsonObject jsonObj, DelegateExecution delegateExecution) {
-		   //get equipment type index from the hash map
-		   HashMap<Integer, String> skiEquipmenList = orderObj.getEquipmentList();
-		   List<String> list = new ArrayList<String> ();
-//		   String stringArray[] = null;
-		   JsonArray test = Json.createArrayBuilder().build();
-		   
-		   System.out.println("THE SIZE OF EQUIPMENTLIST IS: " + skiEquipmenList.size());
-		   for(int i=0; i<skiEquipmenList.size(); i++) {
-			   if(skiEquipmenList.get(i) == "true") {
-				  list.add(Integer.toString(i));
-				  
-//				  equiplist.add(Integer.toString(i));   
+		@SuppressWarnings("unchecked")
+		public JsonObject constructJsonObject(JsonObject jsonObj, DelegateExecution delegateExecution) {
+			   //get equipment type index from the hash map
+			   HashMap<Integer, String> skiEquipmenList = orderObj.getEquipmentList();
+//			   ArrayList<JsonValue> testlist = new ArrayList<JsonValue> ();
+			   JsonArrayBuilder testlist = Json.createArrayBuilder();
+			   ArrayList<String> list = new ArrayList<String>();
+			  	   
+			   System.out.println("THE SIZE OF EQUIPMENTLIST IS: " + skiEquipmenList.size());
+			   for(int i=0; i<skiEquipmenList.size(); i++) {
+				   if(skiEquipmenList.get(i) == "true") {
+					  list.add((String) Integer.toString(i));
+					  testlist.add((String) Integer.toString(i));
+//					  equiplist.add(Integer.toString(i)); 
+				   }
 			   }
-		   }
-		   
-		   test.add((JsonValue) Arrays.asList(list));
-		   System.out.println("-------------- NOW PRINT THE LIST: " + list + " --------------");
-//		   JsonArray equiplist = Json.createArrayBuilder().add("equipment", list);
-		   JsonObject listObj = null;
-//		   listObj.put("equipmentList", list);
-//		   equiplist.add("equipmentList", list);
-		   //construct a JSON object
-		   jsonObj = Json.createObjectBuilder()
-					 .add("messageName", "ExternalOrder")
-					 .add("variables", Json.createObjectBuilder()
-							           .add("firstName", Json.createObjectBuilder()
-							        		             .add("value", (String) delegateExecution.getVariables().get("firstName"))
-							        		             .add("type", "String")
-							        		             .add("valueInfo", "{}"))
-							           .add("lastName", Json.createObjectBuilder()
-							        		   			.add("value", (String) delegateExecution.getVariables().get("lastName"))
-							        		   			.add("type", "String")
-							        		   			.add("valueInfo", "{}"))
-							           .add("orderDate", Json.createObjectBuilder()
-							        		   			 .add("value", "NO ORDER DATE")
-							        		   			 .add("type", "String")
-							        		   			 .add("valueInfo", "{}"))
-							           .add("deliveryDate", Json.createObjectBuilder()
-							        		   				.add("value", "NO DELIVERY DATE")
-							        		   				.add("type", "String")
-							        		   				.add("valueInfo", "{}"))
-							           .add("orderType", Json.createObjectBuilder()
-							        		   			 .add("value", "frog")
-							        		   			 .add("type", "String")
-							        		   			 .add("valueInfo", "{}"))
-							           .add("isBuying", Json.createObjectBuilder()
-							        		   			.add("value", "false")
-							        		   			.add("type", "String")
-							        		   			.add("valueInfo", "{}"))
-							           .add("extProcessId", Json.createObjectBuilder()
-							        		   				.add("value", (String) delegateExecution.getProcessInstanceId())
-							        		   				.add("type", "String")
-							        		   				.add("valueInfo", "{}"))
-							           .add("equipmentList", Json.createArrayBuilder()
-							        		   				 .add("{}")))
-					 .build();  
-		   System.out.println(jsonObj);
-		   
-		   return jsonObj;
-	  }
+			   JsonArray jsonarraytest = testlist.build();
+			   System.out.println("---------- PRINT TESTLIST --------- " + jsonarraytest);
+//			   JsonArray equiplist = Json.createArrayBuilder().add("equipment", list);
+//			   listObj.put("equipmentList", list);
+//			   equiplist.add("equipmentList", list);
+			   //construct a JSON object
+			   jsonObj = Json.createObjectBuilder()
+						 .add("messageName", "ExternalOrder")
+						 .add("variables", Json.createObjectBuilder()
+								           .add("firstName", Json.createObjectBuilder()
+								        		             .add("value", (String) delegateExecution.getVariables().get("firstName"))
+								        		             .add("type", "String")
+								        		             .add("valueInfo", "{}"))
+								           .add("lastName", Json.createObjectBuilder()
+								        		   			.add("value", (String) delegateExecution.getVariables().get("lastName"))
+								        		   			.add("type", "String")
+								        		   			.add("valueInfo", "{}"))
+								           .add("orderDate", Json.createObjectBuilder()
+								        		   			 .add("value", "NO ORDER DATE")
+								        		   			 .add("type", "String")
+								        		   			 .add("valueInfo", "{}"))
+								           .add("deliveryDate", Json.createObjectBuilder()
+								        		   				.add("value", "NO DELIVERY DATE")
+								        		   				.add("type", "String")
+								        		   				.add("valueInfo", "{}"))
+								           .add("orderType", Json.createObjectBuilder()
+								        		   			 .add("value", "frog")
+								        		   			 .add("type", "String")
+								        		   			 .add("valueInfo", "{}"))
+								           .add("isBuying", Json.createObjectBuilder()
+								        		   			.add("value", "false")
+								        		   			.add("type", "String")
+								        		   			.add("valueInfo", "{}"))
+								           .add("extProcessId", Json.createObjectBuilder()
+								        		   				.add("value", (String) delegateExecution.getProcessInstanceId())
+								        		   				.add("type", "String")
+								        		   				.add("valueInfo", "{}"))
+								           .add("equipmentList", jsonarraytest))
+						 .build();  
+			   System.out.println(jsonObj);
+			   
+			   return jsonObj;
+		  }
 	  
 	  
 	  //check equipment
