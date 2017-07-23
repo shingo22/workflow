@@ -16,7 +16,20 @@
     <title>Welcome to Frog Travel!</title>     
 	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
 	<link rel="stylesheet" type="text/css" href="css/main.css"/> 
+	
+	<script type="text/javascript">
+		function hideOrShow(show) {
+			var obj = document.getElementById("submitForm:showEquipList");
+			if(show) {
+				obj.style.display = "block";
+			}else {
+				obj.style.display = "none";
+			}
+		}
+  </script>
+  
   </h:head>
+
   
   <h:body>
    <section class="billboard">
@@ -63,11 +76,14 @@
    				 <f:selectItems value="#{orderServiceBean.getAllDestination()}" />
 			</h:selectOneMenu></td>
 		  </tr>
+		  <tr>
+		  	<td><label></label></td>
+		  </tr>
 		</table>   
 
-		<h:panelGrid columns="8" cellpadding="10" style="width:100%;" >
-		
-            <label for="isTransferIncluded" style="margin-left:216px">Transportation</label>
+		<h:panelGrid columns="8" cellpadding="10" style="width:100%; margin:0 auto;" >
+			
+            <label for="isTransferIncluded" style="margin-left:180px;">Transportation</label>
             <h:selectBooleanCheckbox value="#{processVariables['isTransferIncluded']}" />
             
             <label for="isCateringIncluded">Catering</label>
@@ -77,39 +93,42 @@
             <h:selectBooleanCheckbox value="#{processVariables['isInstructionIncluded']}"/>
 
             <label for="isEquipIncluded">Ski Equipments</label>       
-            <h:selectBooleanCheckbox style="margin-right:200px; padding-left: 10px" value="#{processVariables['isEquipIncluded']}" >
-            	<f:ajax event="click" update="showEquipList" render="@form"/>
-            </h:selectBooleanCheckbox>
+            <h:selectBooleanCheckbox id="checkBox" onclick="hideOrShow(this.checked);" style="margin-right:120px;" value="#{processVariables['isEquipIncluded']}"/>
+			<label></label>
 		</h:panelGrid>
 		
-		
-		<h3 style="text-align:center;">Select Ski Equipments</h3>
-	    <h:panelGrid id="showEquipList" columns="4" cellpadding="10" style="width: 350px; text-align: center; margin-left: 500px">
-		
-            <label for="checkSki">Ski</label>
-            <h:selectBooleanCheckbox value="#{processVariables['checkSki']}"/>
-            
-            <label for="checkSnowboard">Snowboard</label>
-            <h:selectBooleanCheckbox value="#{processVariables['checkSnowboard']}"/>
-            
-            <label for="checkVeryPopularSnowboard">Very Popular Snowboard</label>
-            <h:selectBooleanCheckbox value="#{processVariables['checkVeryPopularSnowboard']}"/>
-
-            <label for="checkHelmet">Helmet</label>
-            <h:selectBooleanCheckbox value="#{processVariables['checkHelmet']}"/>
-            
-            <label for="checkStick">Stick</label>
-            <h:selectBooleanCheckbox value="#{processVariables['checkStick']}"/>
-            
-            <label for="checkSkiSuit">Ski Suit</label>
-            <h:selectBooleanCheckbox value="#{processVariables['checkSkiSuit']}"/>  	    		    	    
-	    </h:panelGrid>
+		<h3 style="text-align:center;">Select Ski Equipments</h3>	
+		<h:panelGrid id="showEquipList" columns="4" cellpadding="10" layout="grid" style="margin:0 auto; width : 438px; display:none;">
+	    		
+	        <label for="checkSki">Ski</label>
+	        <h:selectBooleanCheckbox value="#{processVariables['checkSki']}"/>
+	            
+	        <label for="checkSnowboard">Snowboard</label>
+	        <h:selectBooleanCheckbox value="#{processVariables['checkSnowboard']}"/>
+	            
+	        <label for="checkVeryPopularSnowboard">Very Popular Snowboard</label>
+	        <h:selectBooleanCheckbox value="#{processVariables['checkVeryPopularSnowboard']}"/>
+	            
+	        <label for="checkHelmet">Helmet</label>
+	        <h:selectBooleanCheckbox value="#{processVariables['checkHelmet']}"/>
+	            
+	        <label for="checkStick">Stick</label>
+	        <h:selectBooleanCheckbox value="#{processVariables['checkStick']}"/>
+	            
+	        <label for="checkSkiSuit">Ski Suit</label>
+	        <h:selectBooleanCheckbox value="#{processVariables['checkSkiSuit']}"/> 
+	            
+	        <label></label>  		    	    
+		 </h:panelGrid>
 	   
 		 <!-- The button starts a new process instance. This ends the conversation and redirects us to the tasklist.
            NOTE: Syntax is different when working on user task forms, see file "approveLoanRequest.xhtml".
       	-->
-        
-		<h:commandButton styleClass="button" id="submit_button" value="Submit" style="width:500px; margin-left:25%" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
+ 
+        <h:panelGrid >
+			<h:commandButton styleClass="button" id="submit_button" value="Submit" style="width:600px; margin-left:38%" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
+		</h:panelGrid>>		
+		
 	</h:form>
   </h:body>  
 </f:view>

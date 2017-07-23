@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core">
+
+
+<f:view>
+  <f:metadata>
+    <!-- Start a new process instance. The Process Definition Key is read internally from
+         request parameters and cached in the CDI conversation scope.
+    -->
+    <f:event type="preRenderView" listener="#{camundaTaskForm.startProcessInstanceByKeyForm()}" />
+  </f:metadata>
+  
+  <h:head >
+    <title>Welcome to Frog Travel!</title>  
+    <link rel="stylesheet" type="text/css" href="css/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="css/main.css"/>
+	<style>
+	table{
+		width : 100%;
+		margin:  auto;
+		text-align : center;
+	}
+	table tr input{
+		width:50%;
+		margin-left: 10%
+		border: 5px;
+	}
+	table tr td div{
+	
+	}
+	
+	        table {
+            width: 100%;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        td {
+            border-top: solid 1px;
+            padding: 10px;
+        }
+	
+		table {
+		  width: 100%;
+		  max-width: 100%;
+		  margin-bottom: 20px;
+		}
+		table > thead > tr > th,
+		table > tbody > tr > th,
+		table > tfoot > tr > th,
+		table > thead > tr > td,
+		table > tbody > tr > td,
+		table > tfoot > tr > td {
+			  padding: 8px;
+			  line-height: 1.42857143;
+			  vertical-align: top;
+			  border-top: 1px solid #ddd;
+			}
+		table > thead > tr > th {
+		  vertical-align: bottom;
+		  border-bottom: 2px solid #ddd;
+		}
+        tbody tr:hover {
+            background: #b9b9b9;
+        }
+	
+	        .btn {
+            width: 100px;
+            height: 40px;
+            background: #c5deea;
+            background: -moz-linear-gradient(top, #c5deea 0%, #8abbd7 31%, #066dab 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c5deea), color-stop(31%,#8abbd7), color-stop(100%,#066dab));
+            background: -webkit-linear-gradient(top, #c5deea 0%,#8abbd7 31%,#066dab 100%);
+            background: -o-linear-gradient(top, #c5deea 0%,#8abbd7 31%,#066dab 100%);
+            background: -ms-linear-gradient(top, #c5deea 0%,#8abbd7 31%,#066dab 100%);
+            background: linear-gradient(to bottom, #c5deea 0%,#8abbd7 31%,#066dab 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c5deea', endColorstr='#066dab',GradientType=0 );
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .btn:active {
+                background: #c5deea;
+                background: -moz-radial-gradient(center, ellipse cover, #c5deea 0%, #8abbd7 31%, #066dab 100%);
+                background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#c5deea), color-stop(31%,#8abbd7), color-stop(100%,#066dab));
+                background: -webkit-radial-gradient(center, ellipse cover, #c5deea 0%,#8abbd7 31%,#066dab 100%);
+                background: -o-radial-gradient(center, ellipse cover, #c5deea 0%,#8abbd7 31%,#066dab 100%);
+                background: -ms-radial-gradient(center, ellipse cover, #c5deea 0%,#8abbd7 31%,#066dab 100%);
+                background: radial-gradient(ellipse at center, #c5deea 0%,#8abbd7 31%,#066dab 100%);
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c5deea', endColorstr='#066dab',GradientType=1 );
+            }
+            
+      h1, h3{
+            text-shadow:5px 5px 5px rgba(0, 0, 0, 0.66);
+        }
+        
+                .box {
+            background: #f2f6f8;
+            background: -moz-linear-gradient(top, #f2f6f8 0%, #d8e1e7 50%, #b5c6d0 51%, #e0eff9 100%);
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2f6f8), color-stop(50%,#d8e1e7), color-stop(51%,#b5c6d0), color-stop(100%,#e0eff9));
+            background: -webkit-linear-gradient(top, #f2f6f8 0%,#d8e1e7 50%,#b5c6d0 51%,#e0eff9 100%);
+            background: -o-linear-gradient(top, #f2f6f8 0%,#d8e1e7 50%,#b5c6d0 51%,#e0eff9 100%);
+            background: -ms-linear-gradient(top, #f2f6f8 0%,#d8e1e7 50%,#b5c6d0 51%,#e0eff9 100%);
+            background: linear-gradient(to bottom, #f2f6f8 0%,#d8e1e7 50%,#b5c6d0 51%,#e0eff9 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#e0eff9',GradientType=0 );
+            width: 200px;
+            height: 200px;
+            border-radius: 5px;
+            -moz-transition: all 1s;
+            -o-transition: all 1s;
+            -webkit-transition: all 1s;
+            transition: all 1s;
+ 
+            margin: auto;
+        }
+        
+        
+		.Ski tr td.:last-child{
+			margin-rightt:50px;
+			}
+	
+		.Ski:first-child{
+			margin-right: 20px;
+			}
+	</style>
+  </h:head>
+  
+  <h:body>
+    <br/>
+   
+    <section class="billboard">
+		<!--  hero header  -->
+		<header class="hero_header">
+			<div class="wrapper clearfix">
+				<a href="#"><img src="hero-quvol.jpg" alt="ice" height="62" width="60" style="width:100%; height:208px;" align="middle"/></a>
+			</div>
+		</header><!--  end hero header  -->
+		<div class="caption">
+			<h2>Frog Travel Ltd. - best ski experience ever</h2>
+		</div>
+	</section>
+    <h1 style="text-align:center;">Create Order</h1>
+    <h:form class="form_style" id="submitForm" style="text-align: center;">
+    
+		<h:panelGrid columns="2"  style="position: relative; width: 100%; text-align=center">
+		
+			<label for="firstName" style = "text-align:center; width: 50%">First Name</label>
+			<h:inputText id="firstName" style="width:50%" value="#{processVariables['firstName']}" required="true"/>
+			
+			<label for="lastName">Last Name</label>
+			<h:inputText id="lastName" value="#{processVariables['lastName']}" required="true"/>
+			
+			<label for="birthDate">Birth Date</label>
+		    <h:inputText id="birthDate" value="#{processVariables['birthDate']}"/>
+		    
+		    <label for="email">E-mail</label>
+		    <h:inputText id="email" value="#{processVariables['email']}" required="true" />  
+		    
+		    <label for="arriveDate">Arrive Date</label>
+			<h:inputText id="arriveDate" value="#{processVariables['arriveDate']}" required="true" />
+			
+			<label for="returnDate">Return Date</label>
+			<h:inputText id="returnDate" value="#{processVariables['returnDate']}" required="true" />
+		
+			<label for="destination">Destination</label>
+		    <h:selectOneMenu id="destination" value="#{processVariables['destination']}" required="true">
+		    			<f:selectItems value="#{orderServiceBean.getAllDestination()}" />
+			</h:selectOneMenu>
+	 
+		</h:panelGrid>   
+
+					
+		<br/>
+		<br/>		
+		<br/>
+		<h:panelGrid class = "box" columns="8" id = "SKi" cellpadding="10"
+            style="width:100%; text-align: center; ">
+            
+			<div style = "margin-left:40%">
+            	<label for="isTransferIncluded" style = "margin-left:50%">Transportation</label>
+            </div>
+            
+            <div>
+            	<h:selectBooleanCheckbox value="#{processVariables['isTransferIncluded']}"/>
+            </div>
+            
+            <div>
+            	<label for="isCateringIncluded">Catering</label>
+            </div>
+            
+            <div>
+            	<h:selectBooleanCheckbox value="#{processVariables['isCateringIncluded']}"/>
+            </div>
+            
+            <div>
+            	<label for="isInstructionIncluded">Instruction</label>
+            </div>
+            
+            <div>
+            	<h:selectBooleanCheckbox value="#{processVariables['isInstructionIncluded']}"/>
+            </div>
+
+			<div>
+            	<label for="isEquipIncluded" style =" margin-right:0%; margin-left:20%">Ski Equipments </label>
+            </div>
+            <div style =" margin-right:20%">
+            	<h:selectBooleanCheckbox  style =" margin-right:90%" value="#{processVariables['isEquipIncluded']}"/>
+             </div>     
+       
+		</h:panelGrid>
+		
+		<h3 id = "SkiEquip" style="text-align:center;">Select Ski Equipments</h3>
+	    <h:panelGrid columns="2" style="width: 100%; text-align: center">
+				<label for="checkSki">Ski</label>
+	            <h:selectBooleanCheckbox value="#{processVariables['checkSki']}"/>
+	            
+	            <label for="checkSnowboard">Snowboard</label>
+	            <h:selectBooleanCheckbox value="#{processVariables['checkSnowboard']}"/>
+	            
+	            <label for="checkVeryPopularSnowboard">Very Popular Snowboard</label>
+	            <h:selectBooleanCheckbox value="#{processVariables['checkVeryPopularSnowboard']}"/>
+		
+	            <label for="checkHelmet">Helmet</label>
+	            <h:selectBooleanCheckbox value="#{processVariables['checkHelmet']}"/>
+	            
+	            <label for="checkStick">Stick</label>
+	            <h:selectBooleanCheckbox value="#{processVariables['checkStick']}"/>
+	            
+	            <label for="checkSkiSuit">Ski Suit</label>
+	            <h:selectBooleanCheckbox value="#{processVariables['checkSkiSuit']}"/>  
+		  
+	    </h:panelGrid>
+	   
+		 <!-- The button starts a new process instance. This ends the conversation and redirects us to the tasklist.
+           NOTE: Syntax is different when working on user task forms, see file "approveLoanRequest.xhtml".
+      -->
+		<h:commandButton class="btn" id="submit_button" value="Continue" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
+		<h:commandButton class="btn"  id="cancel_button" value="Cancel" action="#{camundaTaskForm.completeProcessInstanceForm()}" />
+		
+	</h:form>
+	
+	<script>
+		
+
+		function togglePanelGrid() {
+		    var x = document.getElementById(.SkiEquip);
+		    if (x.style.display === 'none') {
+		        x.style.display = 'block';
+		    } else {
+		        x.style.display = 'none';
+		    }
+		}
+
+	</script>
+  </h:body>  
+</f:view>
+</html>
