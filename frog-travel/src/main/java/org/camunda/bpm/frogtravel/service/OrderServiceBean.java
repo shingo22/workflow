@@ -2,9 +2,11 @@ package org.camunda.bpm.frogtravel.service;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import org.camunda.bpm.engine.cdi.jsf.TaskForm;
@@ -223,9 +225,9 @@ public class OrderServiceBean {
 	  //send message to Ski Oasis
 	  public void checkEquipment(DelegateExecution delegateExecution) throws Exception {
 			// build HTTP request with all variables as parameters
-			HttpClient client = HttpClients.createDefault();
-//			HttpPut put = new HttpPut("http://requestb.in/<your-request-bin>");
-			RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://requestb.in/wkyz21wk");
+		    CloseableHttpClient client = HttpClients.createDefault();
+			HttpPut httpput = new HttpPut("http://10.67.27.25:8081/skioasis-0.1.0-SNAPSHOT/register-order");
+			//RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://10.67.27.25:8081/skioasis-0.1.0-SNAPSHOT/register-order");
 					
 			//construct a JSON object to fulfill the requested format from SkiOasis
 			JsonObject jsonObj = null;
@@ -234,16 +236,21 @@ public class OrderServiceBean {
 			//assign to string entity
 			StringEntity entity = new StringEntity(jsonObj.toString());
 
-			requestBuilder.setHeader("Content-type", "application/json");
-			requestBuilder.setEntity(entity);
+			//requestBuilder.setHeader("Content-type", "application/json");
+			//requestBuilder.setEntity(entity);
+			httpput.setHeader("Content-type", "application/json");
+			httpput.setEntity(entity);
+			//HttpUriRequest request = httpput.build();
+
 			// execute request
-			HttpUriRequest request = requestBuilder.build();
+			//HttpUriRequest request = requestBuilder.build();
 			System.out.println("---------NOW PRINT REQUEST CONTENT---------");
-			System.out.println(request);
-			HttpResponse response = client.execute(request);
+			//System.out.println(request);
+			HttpResponse response = client.execute(httpput);
 			// log debug information
-			System.out.println(request.getURI());
-			System.out.println(response.getStatusLine());		
+			//System.out.println(request.getURI());
+			System.out.println(response.getStatusLine());	
+			client.close();
 		}	
 	  
 	  

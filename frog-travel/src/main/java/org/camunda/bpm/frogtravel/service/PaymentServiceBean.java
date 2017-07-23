@@ -91,7 +91,7 @@ public class PaymentServiceBean {
         System.out.println("===== HTTP POST Start =====");
          
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("http://www.example.com");
+        HttpPost httpPost = new HttpPost("http://192.168.0.24:8080/engine-rest/message");
          
         StringEntity entity = new StringEntity(jsonObj.toString());
         httpPost.setEntity(entity);
@@ -118,7 +118,7 @@ public class PaymentServiceBean {
         System.out.println("===== HTTP POST Start =====");
          
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("http://www.example.com");
+        HttpPost httpPost = new HttpPost("http://192.168.0.24:8080/engine-rest/message");
          
         StringEntity entity = new StringEntity(jsonObj.toString());
         httpPost.setEntity(entity);
