@@ -277,7 +277,7 @@ public class OrderServiceBean {
 			   JsonArrayBuilder equiplist = Json.createArrayBuilder();
 			  	   
 			   System.out.println("THE SIZE OF EQUIPMENTLIST IS: " + skiEquipmenList.size());
-			   for(int i=0; i<skiEquipmenList.size(); i++) {
+			   for(int i=1; i<=skiEquipmenList.size(); i++) {
 				   if(skiEquipmenList.get(i) == "true") {
 					  equiplist.add((String) Integer.toString(i)); 
 				   }

@@ -383,7 +383,7 @@
           <camunda:inputOutput>
             <camunda:inputParameter name="to">${email}</camunda:inputParameter>
             <camunda:inputParameter name="subject">Not Available</camunda:inputParameter>
-            <camunda:inputParameter name="text">S{rejectionMail}</camunda:inputParameter>
+            <camunda:inputParameter name="text">${rejectionMail}</camunda:inputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>mail-send</camunda:connectorId>
         </camunda:connector>
