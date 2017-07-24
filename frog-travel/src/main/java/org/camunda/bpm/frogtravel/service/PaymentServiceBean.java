@@ -53,18 +53,18 @@ public class PaymentServiceBean {
 			mailContent = mailContent + "   - Instruction \r\n";
 		
 		mailContent = mailContent + "\r\nEquipments (provided by Ski Oasis):\r\n";
-		if ((Boolean) variables.get("checkSki") == true) 
-			mailContent = mailContent + "   - Ski \r\n";
-		if ((Boolean) variables.get("checkSnowboard") == true) 
-			mailContent = mailContent + "   - Snowboard \r\n";
-		if ((Boolean) variables.get("checkVeryPopularSnowboard") == true) 
-			mailContent = mailContent + "   - Very popular snowboard \r\n";
-		if ((Boolean) variables.get("checkHelmet") == true) 
-			mailContent = mailContent + "   - Helmet \r\n";
-		if ((Boolean) variables.get("checkStick") == true) 
-			mailContent = mailContent + "   - Stick \r\n";
-		if ((Boolean) variables.get("checkSkiSuit") == true) 
-			mailContent = mailContent + "   - Ski suit \r\n";
+		if ((Boolean) variables.get("atomicVantage") == true) 
+			mailContent = mailContent + "   - Atomic Vantage X 75 CTI Skis with XT 12 Bindings 2018 \r\n";
+		if ((Boolean) variables.get("blizzardQuattro") == true) 
+			mailContent = mailContent + "   - Blizzard Quattro 8.4 Ti Skis with Xcell 12 Bindings 2018 \r\n";
+		if ((Boolean) variables.get("rossignolAlias") == true) 
+			mailContent = mailContent + "   - Rossignol Alias 120 Ski Boots 2018 \r\n";
+		if ((Boolean) variables.get("nordicaNMove") == true) 
+			mailContent = mailContent + "   - Nordica N-Move 100 Ski-Boots 2017 \r\n";
+		if ((Boolean) variables.get("giroDiscordHelmet") == true) 
+			mailContent = mailContent + "   - Giro Discord Helmet \r\n";
+		if ((Boolean) variables.get("motocrossMtbATVt") == true) 
+			mailContent = mailContent + "   - Motocross Mtb ATV \r\n";
 
 		
 		// For an email asking for payment
@@ -72,7 +72,7 @@ public class PaymentServiceBean {
 		
 		askMail = askMail + "\r\n\r\nIf you agree on the content, you can pay just by clicking on the url below. \r\n\r\n";
 				
-		askMail = askMail + "http://localhost:8080"
+		askMail = askMail + "http://10.66.4.140:8080"
 	    		+ "/frog-travel/customer?id=" + delegateExecution.getProcessInstanceId();
 	    delegateExecution.setVariable("askForPaymentMail", askMail);
 	        
@@ -91,7 +91,7 @@ public class PaymentServiceBean {
         System.out.println("===== HTTP POST Start =====");
          
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("http://192.168.0.24:8080/engine-rest/message");
+        HttpPost httpPost = new HttpPost("http://10.67.14.195:8081/engine-rest/message");
          
         StringEntity entity = new StringEntity(jsonObj.toString());
         httpPost.setEntity(entity);
@@ -100,10 +100,11 @@ public class PaymentServiceBean {
         System.out.println(jsonObj.toString());
         System.out.println(httpPost);
          
-        CloseableHttpResponse response = client.execute(httpPost);
-        if (response.getStatusLine().getStatusCode() == 200){
-        	System.out.println("Succeed");
-        }
+        client.execute(httpPost);
+        //CloseableHttpResponse response = client.execute(httpPost);
+        //if (response.getStatusLine().getStatusCode() == 200){
+        	//System.out.println("Succeed");
+        //}
         client.close();
 
         System.out.println("===== HTTP POST End =====");
@@ -118,7 +119,7 @@ public class PaymentServiceBean {
         System.out.println("===== HTTP POST Start =====");
          
         CloseableHttpClient client = HttpClients.createDefault();
-        HttpPost httpPost = new HttpPost("http://192.168.0.24:8080/engine-rest/message");
+        HttpPost httpPost = new HttpPost("http://10.67.14.195:8081/engine-rest/message");
          
         StringEntity entity = new StringEntity(jsonObj.toString());
         httpPost.setEntity(entity);

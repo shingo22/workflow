@@ -29,9 +29,6 @@ public class SkiOasisServlet extends HttpServlet{
 		response.getWriter().append("Frog Travel");
 	}
 	
-	ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-	RuntimeService runtimeService = processEngine.getRuntimeService();
-	
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
 
@@ -58,6 +55,9 @@ public class SkiOasisServlet extends HttpServlet{
 			
 			try{
 				Thread.sleep(1000);
+				
+				ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+				RuntimeService runtimeService = processEngine.getRuntimeService();
 				
 				RepositoryService repositoryService = processEngine.getRepositoryService();
 				// query for latest process definition with given name

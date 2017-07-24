@@ -113,12 +113,13 @@ public class OrderServiceBean {
 		    orderEntity.setInstructionIncluded((Boolean) variables.get("isInstructionIncluded"));
 		    
 		    //put value into hash map
-		    orderEntity.addEquipment((Integer)1, variables.get("checkSki").toString());
-		    orderEntity.addEquipment((Integer)2, variables.get("checkSnowboard").toString());
-		    orderEntity.addEquipment((Integer)3, variables.get("checkVeryPopularSnowboard").toString());
-		    orderEntity.addEquipment((Integer)4, variables.get("checkHelmet").toString());
-		    orderEntity.addEquipment((Integer)5, variables.get("checkStick").toString());
-		    orderEntity.addEquipment((Integer)6, variables.get("checkSkiSuit").toString());
+		    //put value into hash map
+		    orderEntity.addEquipment((Integer)1, variables.get("atomicVantage").toString());
+		    orderEntity.addEquipment((Integer)2, variables.get("blizzardQuattro").toString());
+		    orderEntity.addEquipment((Integer)3, variables.get("rossignolAlias").toString());
+		    orderEntity.addEquipment((Integer)4, variables.get("nordicaNMove").toString());
+		    orderEntity.addEquipment((Integer)5, variables.get("giroDiscordHelmet").toString());
+		    orderEntity.addEquipment((Integer)6, variables.get("motocrossMtbATVt").toString());
 		    
 		    System.out.println("------------------ NOW PRINT EQUIPMENT LIST -------------------");
 		    System.out.println(orderEntity.getEquipmentList());
@@ -169,7 +170,22 @@ public class OrderServiceBean {
 			  delegateExecution.setVariable("isAccommodationAvailable", true); 
 		  }
 		  else {
-			  delegateExecution.setVariable("isAccommodationAvailable", false);		 
+			  delegateExecution.setVariable("isAccommodationAvailable", false);	
+			  
+			  // Get all process variables
+			  Map<String, Object> variables = delegateExecution.getVariables();
+			  
+			  String mailContent = "Name: "+ variables.get("firstName") + " " + variables.get("lastName") + " \r\n";
+			  mailContent = mailContent + "Birth Date: "+ variables.get("birthDate") + "\r\n";
+			  mailContent = mailContent + "Destination: "+ variables.get("destination") + "\r\n";
+			  mailContent = mailContent + "Arrive Date: "+ variables.get("arriveDate") + "\r\n";
+			  mailContent = mailContent + "Return Date: "+ variables.get("returnDate") + "\r\n";
+			  
+			  mailContent = "Sorry, the accommodation on the date you selected is not available.  \r\n\r\n" + mailContent;
+			  mailContent = mailContent + "\r\n\r\nFrog Travel";
+			  
+			  delegateExecution.setVariable("AccomMail", mailContent);  
+			  
 		  }
 		  
 	  } 
@@ -226,7 +242,7 @@ public class OrderServiceBean {
 	  public void checkEquipment(DelegateExecution delegateExecution) throws Exception {
 			// build HTTP request with all variables as parameters
 		    CloseableHttpClient client = HttpClients.createDefault();
-			HttpPut httpput = new HttpPut("http://10.67.27.25:8081/skioasis-0.1.0-SNAPSHOT/register-order");
+			HttpPut httpput = new HttpPut("http://10.67.14.195:8081/skioasis-0.1.0-SNAPSHOT/register-order");
 			//RequestBuilder requestBuilder = RequestBuilder.get().setUri("https://10.67.27.25:8081/skioasis-0.1.0-SNAPSHOT/register-order");
 					
 			//construct a JSON object to fulfill the requested format from SkiOasis
@@ -308,5 +324,45 @@ public class OrderServiceBean {
 			   
 			   return jsonObj;
 		  }
+	  
+	  //rejection email
+	  public void writeREmail(DelegateExecution delegateExecution) {
+		  // Get all process variables
+		  Map<String, Object> variables = delegateExecution.getVariables();
+		  
+		  String mailContent = "Name: "+ variables.get("firstName") + " " + variables.get("lastName") + " \r\n";
+		  mailContent = mailContent + "Birth Date: "+ variables.get("birthDate") + "\r\n";
+		  mailContent = mailContent + "Destination: "+ variables.get("destination") + "\r\n";
+		  mailContent = mailContent + "Arrive Date: "+ variables.get("arriveDate") + "\r\n";
+		  mailContent = mailContent + "Return Date: "+ variables.get("returnDate") + "\r\n";
+		  
+		  mailContent = mailContent + "\r\nOptions:\r\n";
+		  if ((Boolean) variables.get("isTransferIncluded") == true) 
+			  mailContent = mailContent + "   - Transportation \r\n";
+		  if ((Boolean) variables.get("isCateringIncluded") == true) 
+			  mailContent = mailContent + "   - Catering \r\n";
+		  if ((Boolean) variables.get("isInstructionIncluded") == true) 
+			  mailContent = mailContent + "   - Instruction \r\n";
+			
+		  mailContent = mailContent + "\r\nEquipments (provided by Ski Oasis):\r\n";
+		  if ((Boolean) variables.get("atomicVantage") == true) 
+			  mailContent = mailContent + "   - Atomic Vantage X 75 CTI Skis with XT 12 Bindings 2018 \r\n";
+		  if ((Boolean) variables.get("blizzardQuattro") == true) 
+			  mailContent = mailContent + "   - Blizzard Quattro 8.4 Ti Skis with Xcell 12 Bindings 2018 \r\n";
+		  if ((Boolean) variables.get("rossignolAlias") == true) 
+			  mailContent = mailContent + "   - Rossignol Alias 120 Ski Boots 2018 \r\n";
+		  if ((Boolean) variables.get("nordicaNMove") == true) 
+			  mailContent = mailContent + "   - Nordica N-Move 100 Ski-Boots 2017 \r\n";
+		  if ((Boolean) variables.get("giroDiscordHelmet") == true) 
+			  mailContent = mailContent + "   - Giro Discord Helmet \r\n";
+		  if ((Boolean) variables.get("motocrossMtbATVt") == true) 
+			  mailContent = mailContent + "   - Motocross Mtb ATV \r\n";
+		  
+		  mailContent = "Sorry, the options on the date you selected is not available.  \r\n\r\n" + mailContent;
+		  mailContent = mailContent + "\r\n\r\nFrog Travel";
+		  
+		  delegateExecution.setVariable("rejectionMail", mailContent);  
+		  
+	  }
 	  
 }
